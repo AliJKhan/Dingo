@@ -1,6 +1,8 @@
 A basic template for API building using Laravel/ Dingo API Framework + JWT for token based auth.
 Follow the steps to set up and use.
-For any quries let me know at ali.jibran44@gmail.com....Happy API Building :) 
+For any quries let me know at ali.jibran44@gmail.com 
+
+....Happy API Building :) 
 
 
 Set document root to {YOUR DIR NAME}/public/
