@@ -12,6 +12,8 @@
 */
 $api = app('Dingo\Api\Routing\Router');
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,6 +22,7 @@ Route::get('/', function () {
 $api->version('v1',function($api){
 	
 	$api->post('authenticate','App\Http\Controllers\Auth\LoginController@authenticate');
+	$api->get('test', function () {return 'Congratulations on setting this up!!'; });
 	
 });
 
