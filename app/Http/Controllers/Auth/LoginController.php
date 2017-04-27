@@ -55,8 +55,8 @@ class LoginController extends BaseController
 
         $role->users()->attach($user);
 
-        $activation = Activation::create($user);
-        Activation::complete($user, $activation->code);
+        //$activation = Activation::create($user);
+        //Activation::complete($user, $activation->code);
 
         return response()->json(['msg' => 'User Created Successfully'], 200);
     }
