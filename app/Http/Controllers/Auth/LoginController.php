@@ -32,7 +32,7 @@ class LoginController extends BaseController
         $user->last_name = $request->get('last_name');
         $user->email = $request->get('email');
         $user->password = Hash::make($request->get('password'));
-        $user->permissions = "{'user.delete' => 0 }";
+        $user->permissions = json_encode(['user.delete' => 0 ]);
 
 
         if($user->save())
