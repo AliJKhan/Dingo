@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\BaseController;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
+use Illuminate\Support\Facades\Hash;
 class LoginController extends BaseController
 {
     /*
@@ -20,9 +24,46 @@ class LoginController extends BaseController
     |
     */
 
-    
+    public function signUp(Request $request)
+    {
+        $user = User::where('mobile',$request->get('mobile'))->first();
 
-     public function authenticate(Request $request)
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+        $user->permissions = [
+            'user.delete' => 0,
+        ];
+
+
+        if($user->save())
+                return response()->json(['msg' => 'User Updated Successfully'], 200);
+        else
+              return response()->json(['msg' => 'Error Was Not Updated Successfully'], 500);
+    }
+
+    public function mobileSignUp(Request $request)
+    {
+
+        $role = Sentinel::findRoleByName('User');
+        $user = new User();
+
+        $user->mobile = $request->get('mobile');
+        if(!$user->save())
+        {
+            return response()->json(['msg' => 'User Already Registered'], 200);
+        }
+
+        $role->users()->attach($user);
+
+        $activation = Activation::create($user);
+        Activation::complete($user, $activation->code);
+
+        return response()->json(['msg' => 'User Created Successfully'], 200);
+    }
+
+    public function authenticate(Request $request)
     {
         // grab credentials from the request
         $credentials = $request->only('email','password');
@@ -42,26 +83,26 @@ class LoginController extends BaseController
         return response()->json(compact('token'));
     }
 
-    public function show()
+    public function getUser()
     {
-       
+
         try{
-             $user =  JWTAuth::parseToken()->toUser();
+            $user =  JWTAuth::parseToken()->toUser();
 
             if(!$user)
             {
                 return $this->response->errorNotFound("User Not Found");
-            }    
+            }
         }
         catch(\Tymon\JWTAuth\Exceptions\JWTException $e)
         {
             $this->response->error("Something Went Wrong");
         }
-        
-     return $this->response->array(compact('user'))->setStatusCode(200);
+
+        return $this->response->array(compact('user'))->setStatusCode(200);
     }
 
-     public function getToken()
+    public function refreshToken()
     {
         $token = JWTAuth::getToken();
         if(!$token)
@@ -77,6 +118,8 @@ class LoginController extends BaseController
             $this->response->error("Something went wrong");
         }
         return $this->response->array(compact('refreshedToken'));
-    
+
     }
+
+
 }

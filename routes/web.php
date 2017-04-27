@@ -18,24 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 $api->version('v1',function($api){
-	
+    $api->post('signUp','App\Http\Controllers\Auth\LoginController@signUp');
 	$api->post('authenticate','App\Http\Controllers\Auth\LoginController@authenticate');
+    $api->post('mobileSignUp','App\Http\Controllers\Auth\LoginController@mobileSignUp');
 	$api->get('test', function () {return 'Congratulations on setting this up!!'; });
 	
 });
 
 
 $api->version('v1',['middleware'=>'api.auth'],function($api){
-	$api->get('users','App\Http\Controllers\ApiController@index');
-	$api->get('user','App\Http\Controllers\Auth\LoginController@show');
-	$api->get('token','App\Http\Controllers\Auth\LoginController@getToken');
+	$api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
+	$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
+	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
 	
-	//REQUEST CONTROLLER
-	$api->get('request','App\Http\Controllers\ReqController@index');
-	$api->post('request','App\Http\Controllers\ReqController@create');
 	
-
 
 });
