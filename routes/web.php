@@ -32,6 +32,6 @@ $api->version('v1',['middleware'=>'api.auth'],function($api){
 	$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
 	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
 	
-	
+
 
 });

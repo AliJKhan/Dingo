@@ -11,11 +11,15 @@ php artisan vendor:publish --provider="Dingo\Api\Provider\LaravelServiceProvider
 API_STANDARDS_TREE=vnd
 API_SUBTYPE=myapp
 API_DOMAIN=localhost
-API_NAME="Dingo API"
+API_NAME="Autogenie API"
+
+
+php artisan serve
 
 *TEST API* 
-http://localhost/api/test
+http://localhost:8000/api/test
 
+*IF You GET 404 try changing API_DOMAIN=localhost to API_DOMAIN= *
 
 Now that the api has been setup let us use the token system. Set up a user with sentinel or however.
 
@@ -32,3 +36,6 @@ GET localhost/api/users
 
 GET localhost/api/token
  --Response: New token *Previous token becomes invalid*.
+
+
+php artisan serve --host 0.0.0.0
