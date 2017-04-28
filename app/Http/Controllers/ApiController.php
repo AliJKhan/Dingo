@@ -48,7 +48,7 @@ class ApiController extends Controller
             $result = curl_exec($ch); //This is the result from SMS4CONNECT
             curl_close($ch);
 
-            return response()->json(['response_code' => 2, 'message' => "OTP Code Sent" , "data"=>['result'=> $result,'to'=>$to]], 200);
+            return response()->json(['response_code' => 2, 'message' => "OTP Code Sent" , "data"=>''], 200);
 
 
 
