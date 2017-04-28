@@ -45,10 +45,10 @@ class ApiController extends Controller
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_exec($ch); //This is the result from SMS4CONNECT
+            $result = curl_exec($ch); //This is the result from SMS4CONNECT
             curl_close($ch);
 
-            return response()->json(['response_code' => 2, 'message' => "OTP Code Sent" , "data"=>""], 200);
+            return response()->json(['response_code' => 2, 'message' => "OTP Code Sent" , "data"=>['result'=> $result]], 200);
 
 
 
