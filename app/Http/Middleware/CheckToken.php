@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\User;
+use Closure;
+
+class CheckToken
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+
+        $user = User::where('token', $request->token)->first();
+
+        if (!$user) {
+            return response()->json(['response_code' => 0, 'message' => "Token not present or false", 'data' => $request->all()], 200);
+        }
+
+
+        return $next($request);
+    }
+}
