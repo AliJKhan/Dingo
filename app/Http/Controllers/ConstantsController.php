@@ -53,7 +53,6 @@ class ConstantsController extends Controller
     const OTP_VERIFIED_NEW_USER_SIGNED_UP   = 3;
     const OTP_VERIFIED_USER_ALREADY_EXITS  = 4;
     const OTP_NOT_VERIFIED  = 5;
-    const OTP_EXISTS  = 6;
 
 
 }

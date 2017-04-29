@@ -96,7 +96,7 @@ class ApiController extends Controller
                     $user = User::where('phone_number', $mobile)->first();
 
                     if($user){
-                        return response()->json(['response_code' => ConstantsController::OTP_VERIFIED_USER_ALREADY_EXITS, 'message' => "Pin verified, User already SignedUp", 'data' =>$user->token], 200);
+                        return response()->json(['response_code' => ConstantsController::OTP_VERIFIED_USER_ALREADY_EXITS, 'message' => "Pin verified, User already SignedUp", 'data' =>['user_id'=>$user->id,'token'=>$user->token]], 200);
                     }
                     $role = Sentinel::findRoleByName('User');
 
@@ -106,12 +106,12 @@ class ApiController extends Controller
                     $user->token    = str_random(30);
                     $user->save();
                     $role->users()->attach($user);
-                    return response()->json( ['response_code' => ConstantsController::OTP_VERIFIED_NEW_USER_SIGNED_UP, 'message' => "Pin verified, New User SignedUp", 'data' =>$user->token], 200);
+                    return response()->json( ['response_code' => ConstantsController::OTP_VERIFIED_NEW_USER_SIGNED_UP, 'message' => "Pin verified, New User SignedUp", 'data' =>['user_id'=>$user->id,'token'=>$user->token]], 200);
 
 
                 }
                 else{
-                    return response()->json( ['response_code' => ConstantsController::OTP_NOT_VERIFIED, 'message' => "Pin not verified. ", 'data' => 0 ], 200);
+                    return response()->json( ['response_code' => ConstantsController::OTP_NOT_VERIFIED, 'message' => "Pin not verified. ", 'data' =>['user_id'=>-1,'token'=>''] ], 200);
 
                 }
 
