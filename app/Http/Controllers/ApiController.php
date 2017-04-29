@@ -34,7 +34,20 @@ class ApiController extends Controller
 
             if($optRequest){
 
-                return response()->json(['response_code' => ConstantsController::OTP_EXISTS, 'message' => "Pin already generated, User not SignedUp", 'data' =>$optRequest->otp_pin], 200);
+                $to = $str = ltrim($mobile, '+');
+
+                $message = "Welcome to Auto Genie. Your code is: " .$optRequest->pin;
+                $message = urlencode($message);
+                $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
+
+                $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $result = curl_exec($ch); //This is the result from SMS4CONNECT
+                curl_close($ch);
+                return response()->json(['response_code' => ConstantsController::OTP_SUCCESSFULLY_SENT, 'message' => "OTP Code Sent" , "data"=>''], 200);
+
 
             }
 
@@ -46,7 +59,7 @@ class ApiController extends Controller
 
             $message = "Welcome to Auto Genie. Your code is: " .$otp;
             $message = urlencode($message);
-            $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$mobile."&lang=".$lang."&mask=".$mask."&type=".$type;
+            $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
 
             $ch = curl_init('http://www.sms4connect.com/api/sendsms.php/sendsms/url');
             curl_setopt($ch, CURLOPT_POST, true);
