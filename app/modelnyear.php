@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class years extends Model
+class modelnyear extends Model
 {
-    protected $table = 'years';
+    protected $table = 'modelnyear';
+
 
 }

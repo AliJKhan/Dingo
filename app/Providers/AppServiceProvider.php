@@ -23,6 +23,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
+        if (env('APP_ENV') == 'local') {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(\Dingo\Api\Provider\LaravelServiceProvider::class);
+
+        }
+        else{
+            $this->app->register(\Dingo\Api\Provider\LaravelServiceProvider::class);
+        }
     }
 }

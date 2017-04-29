@@ -1,5 +1,5 @@
 <?php
-
+use Barryvdh\Debugbar\LaravelDebugbar;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,13 +10,12 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+
 $api = app('Dingo\Api\Routing\Router');
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 $api->version('v1',function($api){
     $api->post('generateOtp','App\Http\Controllers\ApiController@postGenerateOtp');
@@ -36,15 +35,15 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
     $api->get('getMakes','App\Http\Controllers\ApiController@getMakes');
     $api->get('getModel','App\Http\Controllers\ApiController@getModel');
+    $api->get('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
 
 
 
 
-/*
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
 	$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
-	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');*/
-	
+	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
+
 
 
 });
