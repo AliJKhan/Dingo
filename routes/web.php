@@ -34,8 +34,8 @@ $api->version('v1',function($api){
 $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
     $api->post('getMakes','App\Http\Controllers\ApiController@getMakes');
-    $api->post('getModel','App\Http\Controllers\ApiController@getModel');
-    $api->post('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
+    $api->get('getModel','App\Http\Controllers\ApiController@getModel');
+    $api->get('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
 
 
 
