@@ -154,7 +154,7 @@ class ApiController extends Controller
     {
         try{
 
-            $make=  make::find($request->get('make'));
+            $make=  make::find($request->get('make_id'));
 
             $models = $make->models;
 
@@ -175,7 +175,7 @@ class ApiController extends Controller
                 ->join('years', function($join)use($request)
                 {
                     $join->on('modelnyear.years_id', '=', 'years.id')
-                        ->where('modelnyear.car_models_id',$request->get('model'));
+                        ->where('modelnyear.car_models_id',$request->get('model_id'));
                 })
                 ->get();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Models Found" , "data"=>$modelsNYear], 200);
