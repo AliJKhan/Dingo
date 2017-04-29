@@ -36,7 +36,7 @@ class ApiController extends Controller
 
                 $to = $str = ltrim($mobile, '+');
 
-                $message = "Welcome to Auto Genie. Your code is: " .$optRequest->pin;
+                $message = "Welcome to Auto Genie. Your code is: " .$optRequest->otp_pin;
                 $message = urlencode($message);
                 $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
 
