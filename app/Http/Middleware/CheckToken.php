@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\ConstantsController;
 use App\User;
 use Closure;
 
@@ -20,7 +21,7 @@ class CheckToken
         $user = User::where('token', $request->token)->first();
 
         if (!$user) {
-            return response()->json(['response_code' => 0, 'message' => "Token not present or false", 'data' => $request->all()], 200);
+            return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "Token not present or false", 'data' => $request->all()], 200);
         }
 
 

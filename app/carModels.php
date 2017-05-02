@@ -13,4 +13,9 @@ class carModels extends Model
         return $this->hasMany('App\modelnyear');
     }
 
+    public function getEngineCapacity()
+    {
+        return $this->hasOne('App\engine_oil_capacity');
+    }
+
 }

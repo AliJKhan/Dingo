@@ -10,7 +10,6 @@ use Barryvdh\Debugbar\LaravelDebugbar;
 | to using a Closure or controller method. Build something great!
 |
 */
-
 $api = app('Dingo\Api\Routing\Router');
 
 Route::get('/', function () {
@@ -25,19 +24,21 @@ $api->version('v1',function($api){
 
 
     $api->get('test', function () {return 'Congratulations on setting this up!!'; });
-	
-});
 
+});
 
 
 
 $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
-    $api->get('getMakes','App\Http\Controllers\ApiController@getMakes');
-    $api->get('getModel','App\Http\Controllers\ApiController@getModel');
-    $api->get('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
-
-
+    $api->post('getMakes','App\Http\Controllers\ApiController@getMakes');
+    $api->post('getModels','App\Http\Controllers\ApiController@getModel');
+    $api->post('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
+    $api->post('getOilFilterBrands','App\Http\Controllers\ApiController@getOilFilterBrands');
+    $api->post('getOilFilterPrice','App\Http\Controllers\ApiController@getOilFilterPrice');
+    $api->post('getAirFilterBrands','App\Http\Controllers\ApiController@getAirFilterBrands');
+    $api->post('getAirFilterPrice','App\Http\Controllers\ApiController@getAirFilterPrice');
+    $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
 
 
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');

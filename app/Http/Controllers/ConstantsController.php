@@ -55,4 +55,10 @@ class ConstantsController extends Controller
     const OTP_NOT_VERIFIED  = 5;
 
 
+    /* SERVICE TYPES */
+    const OIL_CHANGE  = 1;
+    const BRANDS_SERVICE   = 2;
+    const FIXED_COST_SERVICE  = 3;
+
+
 }

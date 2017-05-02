@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\modelnyear;
 use App\otp_verification,
     App\User,
     App\carModels,
     App\make,
+    App\oil_filter_brands,
+    App\air_filter_brands,
+    App\modelnyear,
     Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class ApiController extends Controller
             if($optRequest){
 
                 $to = $str = ltrim($mobile, '+');
-
+                $optRequest->otp_pin = $otp;
+                $optRequest->save();
                 $message = "Welcome to Auto Genie. Your code is: " .$optRequest->otp_pin;
                 $message = urlencode($message);
                 $data = "id=".$id."&pass=".$pass."&msg=".$message."&to=".$to."&lang=".$lang."&mask=".$mask."&type=".$type;
@@ -137,7 +139,7 @@ class ApiController extends Controller
     {
         try{
 
-            $makes= make::orderBy('name')->get();
+            $makes= make::all();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "" , "data"=> $makes], 200);
 
@@ -179,6 +181,96 @@ class ApiController extends Controller
                 })
                 ->get();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Models Found" , "data"=>$modelsNYear], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getOilFilterBrands(Request $request)
+    {
+        try{
+
+            $oilFilterBrands = oil_filter_brands::all();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Oil Filter Brands" , "data"=>$oilFilterBrands], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getOilFilterPrice(Request $request)
+    {
+        try{
+
+            $oilFilterPrice = \DB::table('oil_filter_brands')
+                ->join('oil_filter_price', function($join)use($request)
+                {
+                    $join->on('oil_filter_price.oil_filter_brands_id', '=', 'oil_filter_brands.id')
+                      //  ->where('oil_filter_brands.id',$request->get('oil_filter_brands_id'))
+                        ->where('oil_filter_price.modelnyear_id',$request->get('modelnyear_id'));
+                })
+                ->get();
+
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Oil Filter Price" , "data"=>$oilFilterPrice], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getAirFilterBrands(Request $request)
+    {
+        try{
+
+            $airFilterBrands = air_filter_brands::all();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Air Filter Brands" , "data"=>$airFilterBrands], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getAirFilterPrice(Request $request)
+    {
+        try{
+
+            $airFilterPrice = \DB::table('air_filter_brands')
+                ->join('air_filter_price', function($join)use($request)
+                {
+                    $join->on('air_filter_price.air_filter_brands_id', '=', 'air_filter_brands.id')
+                        // ->where('air_filter_brands.id',$request->get('air_filter_brands_id'))
+                        ->where('air_filter_price.modelnyear_id',$request->get('modelnyear_id'));
+                })
+                ->get();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Air Filter Price" , "data"=>$airFilterPrice], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getEngineOilCapacity(Request $request)
+    {
+        try{
+
+            $engineOilCapacity = carModels::find($request->get('model_id'))->getEngineCapacity;
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Capacity" , "data"=>$engineOilCapacity], 200);
 
         }
         catch(Exception $ex)
