@@ -10,6 +10,7 @@ use App\otp_verification,
     App\modelnyear,
     Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
+use App\service;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -271,6 +272,21 @@ class ApiController extends Controller
             $engineOilCapacity = carModels::find($request->get('model_id'))->getEngineCapacity;
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Capacity" , "data"=>$engineOilCapacity], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getAllServices(Request $request)
+    {
+        try{
+
+            $services = service::all();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
 
         }
         catch(Exception $ex)

@@ -39,6 +39,7 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getAirFilterBrands','App\Http\Controllers\ApiController@getAirFilterBrands');
     $api->post('getAirFilterPrice','App\Http\Controllers\ApiController@getAirFilterPrice');
     $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
+    $api->post('getAllServices','App\Http\Controllers\ApiController@getAllServices');
 
 
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
