@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\oil_brands;
 use App\otp_verification,
     App\User,
-    App\carModels,
+    App\car_models,
     App\make,
     App\oil_filter_brands,
     App\air_filter_brands,
@@ -293,7 +293,7 @@ class ApiController extends Controller
             foreach ($oilBrands as $brand) {
                 $brand->price = $engineOilCapacity * $brand->price;
             }
-            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Capacity" , "data"=>$oilBrands], 200);
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Prices" , "data"=>$oilBrands], 200);
 
         }
         catch(Exception $ex)

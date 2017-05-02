@@ -4,9 +4,9 @@ namespace App;
 use App\make;
 use Illuminate\Database\Eloquent\Model;
 
-class carModels extends Model
+class car_models extends Model
 {
-    protected $table = 'carModels';
+    protected $table = 'car_models';
 
     public function getModelsNYears()
     {
