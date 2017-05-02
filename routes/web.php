@@ -40,6 +40,7 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getAirFilterPrice','App\Http\Controllers\ApiController@getAirFilterPrice');
     $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
     $api->post('getAllServices','App\Http\Controllers\ApiController@getAllServices');
+    $api->post('getOilChangePrices','App\Http\Controllers\ApiController@getOilChangePrices');
 
 
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');

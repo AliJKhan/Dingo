@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\oil_brands;
 use App\otp_verification,
     App\User,
     App\carModels,
@@ -213,7 +214,7 @@ class ApiController extends Controller
                 ->join('oil_filter_price', function($join)use($request)
                 {
                     $join->on('oil_filter_price.oil_filter_brands_id', '=', 'oil_filter_brands.id')
-                      //  ->where('oil_filter_brands.id',$request->get('oil_filter_brands_id'))
+                        //  ->where('oil_filter_brands.id',$request->get('oil_filter_brands_id'))
                         ->where('oil_filter_price.modelnyear_id',$request->get('modelnyear_id'));
                 })
                 ->get();
@@ -265,20 +266,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getEngineOilCapacity(Request $request)
-    {
-        try{
 
-            $engineOilCapacity = carModels::find($request->get('model_id'))->getEngineCapacity;
-
-            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Capacity" , "data"=>$engineOilCapacity], 200);
-
-        }
-        catch(Exception $ex)
-        {
-            return $ex;
-        }
-    }
 
     public function getAllServices(Request $request)
     {
@@ -294,4 +282,25 @@ class ApiController extends Controller
             return $ex;
         }
     }
+
+    public function getOilChangePrices(Request $request)
+    {
+        try{
+
+            $engineOilCapacity = modelnyear::find($request->get('modelnyear_id'))->getCapacity->capacity;
+            $oilBrands = oil_brands::all();
+
+            foreach ($oilBrands as $brand) {
+                $brand->price = $engineOilCapacity * $brand->price;
+            }
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Capacity" , "data"=>$oilBrands], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+
 }
