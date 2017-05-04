@@ -350,5 +350,19 @@ class ApiController extends Controller
         }
     }
 
+    public function updateOwnedCar(Request $request)
+    {
+        try{
+            $ownedCar = owned_cars::find($request->get('id'))->first();
+            $ownedCar->fill($request->all());
+            $ownedCar->save();
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Updated" , "data"=>""], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
 
 }

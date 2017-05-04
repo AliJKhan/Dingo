@@ -45,6 +45,8 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
     $api->post('postOwnedCar','App\Http\Controllers\ApiController@postOwnedCar');
     $api->post('getOwnedCars','App\Http\Controllers\ApiController@getOwnedCars');
+    $api->post('updateOwnedCar','App\Http\Controllers\ApiController@updateOwnedCar');
+
 
 
 
