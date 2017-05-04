@@ -320,7 +320,7 @@ class ApiController extends Controller
             $user = User::where('token', $request->get('token'))->first();
             $ownedCar = new owned_cars();
             $ownedCar->fill($request->all());
-            $ownedCar->android_id = $request->get('primary_id');
+            $ownedCar->primary_id = $request->get('primary_id');
             $ownedCar->user_id = $user->id;
             $ownedCar->save();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Car Saved" , "data"=>$ownedCar->id], 200);

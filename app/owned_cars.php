@@ -14,7 +14,7 @@ class owned_cars extends Model
         'air_filter_health','oil_filter_health','front_bumper_health','rear_bumper_health','front_right_door_health',
         'front_left_door_health','rear_right_door_health','rear_left_door_health','front_right_fender_health',
         'front_left_fender_health','rear_right_fender_health','rear_left_fender_health','roof_health','bonnet_health',
-        'trunk_health','right_mirror_health','front_right_light_health','front_left_light_health','rear_right_light_health',
+        'trunk_health','right_mirror_health','left_mirror_health','front_right_light_health','front_left_light_health','rear_right_light_health',
         'rear_left_light_health','front_seats_health','rear_seats_health','ac_health','heater_health','cabin_lights_health',
         'engine_oil_health','transmission_oil_health','power_steering_oil_health','battery_water_level','washer_water_level',
         'coolant_health','radiator_water_level','front_right_tyre_health','front_right_brake_pad_health','front_left_tyre_health',
