@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\oil_brands;
+
 use App\otp_verification,
     App\User,
     App\car_models,
@@ -9,9 +9,11 @@ use App\otp_verification,
     App\oil_filter_brands,
     App\air_filter_brands,
     App\modelnyear,
-    Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+    Cartalyst\Sentinel\Laravel\Facades\Sentinel,
+    App\owned_cars,
+    App\service,
+    App\oil_brands;
 
-use App\service;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -294,6 +296,39 @@ class ApiController extends Controller
                 $brand->price = $engineOilCapacity * $brand->price;
             }
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Prices" , "data"=>$oilBrands], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function postOwnedCar(Request $request)
+    {
+        try{
+            $user = User::where('token', $request->get('token'))->first();
+            $ownedCar = new owned_cars();
+            $ownedCar->fill($request->all());
+            $ownedCar->android_id = $request->get('primary_id');
+            $ownedCar->user_id = $user->id;
+            $ownedCar->save();
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Car Saved" , "data"=>$ownedCar->id], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getOwnedCars(Request $request)
+    {
+        try{
+            $user = User::where('token', $request->get('token'))->first();
+
+            $ownedCars = $user->getAllCars;
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Found" , "data"=>$ownedCars], 200);
 
         }
         catch(Exception $ex)

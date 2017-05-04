@@ -43,6 +43,11 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getOilChangePrices','App\Http\Controllers\ApiController@getOilChangePrices');
 
 
+    $api->post('postOwnedCar','App\Http\Controllers\ApiController@postOwnedCar');
+    $api->post('getOwnedCars','App\Http\Controllers\ApiController@getOwnedCars');
+
+
+
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
 	$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
 	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
