@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Validator;;
 use App\otp_verification,
     App\User,
     App\car_models,
@@ -31,9 +31,19 @@ class ApiController extends Controller
 
             $otp = rand("1111", "9999");
 
+            $validator = Validator::make($request->all(), [
+                'phone_number' =>  array('required', 'regex:/^[+]923\d{9}$/i')
 
+            ]);
 
+            if ($validator->fails())
+            {
+                return response()->json(['response_code' => ConstantsController::ERROR_IN_NUMBER, 'message' => "Number Format Incorrect" , "data"=>''], 200);
+
+            }
             $mobile = $request->get('phone_number');
+
+
 
             $optRequest =  otp_verification::where('phone_number', $mobile)->first();
 
@@ -328,6 +338,9 @@ class ApiController extends Controller
             $user = User::where('token', $request->get('token'))->first();
 
             $ownedCars = $user->getAllCars;
+            if(!$ownedCars->first()){
+                return response()->json(['response_code' => ConstantsController::USER_EXISTS_NO_CARS_FOUND, 'message' => "No Cars Found" , "data"=>""], 200);
+            }
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Found" , "data"=>$ownedCars], 200);
 
         }

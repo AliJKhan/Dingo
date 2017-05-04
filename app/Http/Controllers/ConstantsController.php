@@ -53,6 +53,8 @@ class ConstantsController extends Controller
     const OTP_VERIFIED_NEW_USER_SIGNED_UP   = 3;
     const OTP_VERIFIED_USER_ALREADY_EXITS  = 4;
     const OTP_NOT_VERIFIED  = 5;
+    const ERROR_IN_NUMBER  = 6;
+    const USER_EXISTS_NO_CARS_FOUND  = 7;
 
 
     /* SERVICE TYPES */
