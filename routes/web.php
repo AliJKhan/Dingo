@@ -10,50 +10,26 @@ use Barryvdh\Debugbar\LaravelDebugbar;
 | to using a Closure or controller method. Build something great!
 |
 */
-$api = app('Dingo\Api\Routing\Router');
-
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
-$api->version('v1',function($api){
-    $api->post('generateOtp','App\Http\Controllers\ApiController@postGenerateOtp');
-    $api->post('verifyOtp','App\Http\Controllers\ApiController@postVerifyOtp');
-
-
-
-
-    $api->get('test', function () {return 'Congratulations on setting this up!!'; });
-
-});
+/* LOGIN CONTROLLER  */
+Route::get('/', [ 'as' => 'index', 'uses' => 'WebController@index']);
+Route::post('signup/store', [ 'as' => 'signup/store', 'uses' => 'WebController@postStore']);
+Route::post('signin', [ 'as' => 'signin', 'uses' => 'WebController@signIn']);
+Route::get('signup', [ 'as' => 'signup', 'uses' => 'WebController@signUp']);
+Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
 
 
 
-$api->version('v1',['middleware'=>'tokenCheck'],function($api){
+Route::group(['middleware' => ['sentinelCheck']], function () {
+    Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'WebController@dashboard']);
 
-    $api->post('getMakes','App\Http\Controllers\ApiController@getMakes');
-    $api->post('getModels','App\Http\Controllers\ApiController@getModel');
-    $api->post('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
-    $api->post('getOilFilterBrands','App\Http\Controllers\ApiController@getOilFilterBrands');
-    $api->post('getOilFilterPrice','App\Http\Controllers\ApiController@getOilFilterPrice');
-    $api->post('getAirFilterBrands','App\Http\Controllers\ApiController@getAirFilterBrands');
-    $api->post('getAirFilterPrice','App\Http\Controllers\ApiController@getAirFilterPrice');
-    $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
-    $api->post('getAllServices','App\Http\Controllers\ApiController@getAllServices');
-    $api->post('getOilChangePrices','App\Http\Controllers\ApiController@getOilChangePrices');
-
-
-    $api->post('postOwnedCar','App\Http\Controllers\ApiController@postOwnedCar');
-    $api->post('getOwnedCars','App\Http\Controllers\ApiController@getOwnedCars');
-    $api->post('updateOwnedCar','App\Http\Controllers\ApiController@updateOwnedCar');
-
-
-
-
-    $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
-	$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
-	$api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
-
-
+    /* CARS CONTROLLER  */
+    Route::get('car/view', [ 'as' => 'viewCar', 'uses' => 'CarsController@viewCar']);
+    Route::get('car/edit', [ 'as' => 'editCar', 'uses' => 'CarsController@editCar']);
+    Route::post('car/update', [ 'as' => 'updateCar', 'uses' => 'CarsController@updateCar']);
 
 });
