@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class oil_filter_brands extends Model
+class brake_pad_brand extends Model
 {
-    protected $table = 'oil_filter_brands';
+    protected $table = 'brake_pad_brand';
     public $timestamps = false;
     public function getPrice()
     {
-        return $this->hasMany('App\oil_filter_price');
+        return $this->hasMany('App\brake_pad_price');
     }
 }

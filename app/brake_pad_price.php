@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class air_filter_price extends Model
+class brake_pad_price extends Model
 {
+    protected $table = 'brake_pad_price';
     public $timestamps = false;
-    protected $table = 'air_filter_price';
 }

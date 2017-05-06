@@ -20,16 +20,34 @@ Route::get('/', [ 'as' => 'index', 'uses' => 'WebController@index']);
 Route::post('signup/store', [ 'as' => 'signup/store', 'uses' => 'WebController@postStore']);
 Route::post('signin', [ 'as' => 'signin', 'uses' => 'WebController@signIn']);
 Route::get('signup', [ 'as' => 'signup', 'uses' => 'WebController@signUp']);
-Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
 
 
 
 Route::group(['middleware' => ['sentinelCheck']], function () {
     Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'WebController@dashboard']);
+    Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
+    Route::get('modelnyear', [ 'as' => 'modelnyear', 'uses' => 'ServicesController@getModelnyear']);
+
+
+
 
     /* CARS CONTROLLER  */
-    Route::get('car/view', [ 'as' => 'viewCar', 'uses' => 'CarsController@viewCar']);
-    Route::get('car/edit', [ 'as' => 'editCar', 'uses' => 'CarsController@editCar']);
-    Route::post('car/update', [ 'as' => 'updateCar', 'uses' => 'CarsController@updateCar']);
+    Route::get('cars/view', [ 'as' => 'viewCar', 'uses' => 'CarsController@viewCar']);
+    Route::get('cars/edit', [ 'as' => 'editCar', 'uses' => 'CarsController@editCar']);
+    Route::post('cars/update', [ 'as' => 'updateCar', 'uses' => 'CarsController@updateCar']);
+
+
+    /* SERVICES CONTROLLER  */
+    Route::get('services/index', [ 'as' => 'services', 'uses' => 'ServicesController@index']);
+    Route::get('services/edit', [ 'as' => 'editService', 'uses' => 'ServicesController@editService']);
+    Route::post('services/update', [ 'as' => 'updateService', 'uses' => 'ServicesController@updateService']);
+    Route::get('services/add', [ 'as' => 'addService', 'uses' => 'ServicesController@addService']);
+    Route::post('services/store', [ 'as' => 'newService', 'uses' => 'ServicesController@newService']);
+
+    Route::get('services/delete', [ 'as' => 'deleteService', 'uses' => 'ServicesController@deleteService']);
+
+
+
+
 
 });

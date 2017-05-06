@@ -11,7 +11,7 @@ class CarsController extends Controller
     {
         $ownedCar = owned_cars::find($request->get('id'))->first();
 
-        return view('car.view')
+        return view('cars.view')
             ->with('ownedCar',$ownedCar);
 
     }
@@ -22,7 +22,7 @@ class CarsController extends Controller
 
         $ownedCar = owned_cars::find($request->get('id'))->first();
 
-        return view('car.edit')
+        return view('cars.edit')
             ->with('ownedCar',$ownedCar);
 
     }
@@ -34,7 +34,7 @@ class CarsController extends Controller
         $ownedCar->fill($request->all());
         $ownedCar->save();
 
-        return view('car.view')
+        return view('cars.view')
             ->with('ownedCar',$ownedCar);
 
     }

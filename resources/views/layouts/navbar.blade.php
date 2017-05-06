@@ -20,15 +20,19 @@
                     </button>
                     <a class="navbar-brand" href="http://www.jquery2dotnet.com">Brand</a>
                 </div>
+
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
                     <ul class="nav navbar-nav">
 
                         <li><a href="http://www.jquery2dotnet.com">About Us</a></li>
+                        @if (Sentinel::check())
+                            <li class="active"><a href="{{route('dashboard')}}">Home</a></li>
                         <li class="dropdown">
                             <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="http://www.jquery2dotnet.com">Action</a></li>
+                                <li><a href="{{route('services')}}">Services</a></li>
                                 <li><a href="http://www.jquery2dotnet.com">Another action</a></li>
                                 <li><a href="http://www.jquery2dotnet.com">Something else here</a></li>
                                 <li class="divider"></li>
@@ -37,7 +41,9 @@
                                 <li><a href="http://www.jquery2dotnet.com">One more separated link</a></li>
                             </ul>
                         </li>
+                        @endif
                     </ul>
+
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
@@ -85,7 +91,7 @@
                     </ul>
                     @else
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="{{route('dashboard')}}">Home</a></li>
+
                             <form class="form" role="form" method="post" action="{{route('signout')}}" accept-charset="UTF-8" id="login-nav">
 
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -101,7 +107,3 @@
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
