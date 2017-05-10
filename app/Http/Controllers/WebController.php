@@ -60,7 +60,7 @@ class WebController extends Controller
 
 
             $role->users()->attach($user);
-
+//TODO CHANGE RETURN TO REDIRECT ROUTE
             return view('welcome');
         }
 

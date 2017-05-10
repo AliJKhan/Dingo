@@ -31,6 +31,7 @@
                 <label class="col-md-4 control-label" for="models">Select Model:</label>
                 <div class="col-md-4 ">
                     <select name="car_models" class="form-control" id="car_models" >
+                        <option value=""></option>
                         @foreach($models as $model)
                         <option value="{{$model->id}}">{{$model->name}}</option>
                         @endforeach
@@ -47,7 +48,7 @@
                 </div>
             </div>
             <!-- Text input-->
-            <div class="form-group" id="myresult">
+            <div class="form-group" id="ampere">
                 <label class="col-md-4 control-label" for="textinput">Amps</label>
                 <div class="col-md-4">
                     <input id="textinput" name="amps" type="text" placeholder="" class="form-control input-md" value="" >
@@ -58,7 +59,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput" >Price</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value=""  required>
+                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value=""  re>
 
 
                 </div>
@@ -83,15 +84,17 @@
 
 <script type="text/javascript">
     $(function() {
-        $('#myresult').hide();
+        $('#ampere').hide();
         $('#modelSelect').hide();
         $('#years').hide();
 
         $('#selectMe').change(function(){
             if($('#selectMe').val() == 2) {
-                $('#myresult').show();
+                $('#ampere').show();
             } else {
-                $('#myresult').hide();
+                $('#ampere').hide();
+                $('#modelSelect').hide();
+                $('#years').hide();
             }
         });
 
