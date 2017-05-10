@@ -1,3 +1,4 @@
+
 <div class="flash-message">
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
         @if(Session::has('alert-' . $msg))
@@ -6,7 +7,7 @@
         @endif
     @endforeach
 </div>
-<div class="container">
+<div class="navbar-fixed-top">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-default" role="navigation">
