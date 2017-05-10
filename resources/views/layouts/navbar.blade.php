@@ -7,7 +7,6 @@
         @endif
     @endforeach
 </div>
-<div class="navbar-fixed-top">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-default" role="navigation">
@@ -111,4 +110,4 @@
             </nav>
         </div>
     </div>
-</div>
+
