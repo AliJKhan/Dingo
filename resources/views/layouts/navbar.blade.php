@@ -33,7 +33,7 @@
                             <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('services')}}">Services</a></li>
-                                <li><a href="http://www.jquery2dotnet.com">Another action</a></li>
+                                <li><a href="{{route('orders')}}">Orders</a></li>
                                 <li><a href="http://www.jquery2dotnet.com">Something else here</a></li>
                                 <li class="divider"></li>
                                 <li><a href="http://www.jquery2dotnet.com">Separated link</a></li>

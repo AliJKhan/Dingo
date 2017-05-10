@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="textinput">Name</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" value="">
+                    <input id="textinput" name="name" type="text" placeholder="" class="form-control input-md" value="" required>
 
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="form-group" id="modelSelect">
                 <label class="col-md-4 control-label" for="models">Select Model:</label>
                 <div class="col-md-4 ">
-                    <select name="car_models" class="form-control" id="car_models">
+                    <select name="car_models" class="form-control" id="car_models" >
                         @foreach($models as $model)
                         <option value="{{$model->id}}">{{$model->name}}</option>
                         @endforeach
@@ -41,7 +41,7 @@
             <div class="form-group " id="years">
                 <label class="col-md-4 control-label" for="years">Select Year:</label>
                 <div class="col-md-4 ">
-                    <select name="modelnyear" class="form-control" id="selectYears">
+                    <select name="modelnyear" class="form-control" id="selectYears" >
 
                     </select>
                 </div>
@@ -50,15 +50,15 @@
             <div class="form-group" id="myresult">
                 <label class="col-md-4 control-label" for="textinput">Amps</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="amps" type="text" placeholder="" class="form-control input-md" value="">
+                    <input id="textinput" name="amps" type="text" placeholder="" class="form-control input-md" value="" >
 
                 </div>
             </div>
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Price</label>
+                <label class="col-md-4 control-label" for="textinput" >Price</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value="" >
+                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value=""  required>
 
 
                 </div>

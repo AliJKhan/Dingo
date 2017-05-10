@@ -18,3 +18,21 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+
+function printDiv()
+{
+
+    var divToPrint=document.getElementById("invoice");
+
+    var newWin=window.open('','Print-Window');
+
+    newWin.document.open();
+
+    newWin.document.write('<html ><body >'+divToPrint.innerHTML+'</body></html>');
+
+    newWin.document.close();
+
+    setTimeout(function(){newWin.close();},10);
+
+}

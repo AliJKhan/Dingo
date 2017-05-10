@@ -47,6 +47,10 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('updateOwnedCar','App\Http\Controllers\ApiController@updateOwnedCar');
 
 
+    $api->post('postOrder','App\Http\Controllers\ApiController@postOrder');
+    $api->post('getOrder','App\Http\Controllers\ApiController@getOrder');
+
+
 
 
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');

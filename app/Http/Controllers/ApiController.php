@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\order_items;
+use App\orders;
 use Validator;;
 use App\otp_verification,
     App\User,
@@ -357,6 +359,61 @@ class ApiController extends Controller
             $ownedCar->fill($request->all());
             $ownedCar->save();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Updated" , "data"=>""], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function postOrder(Request $request)
+    {
+        try{
+
+
+            $orderItems = json_decode(($request->get('data')));
+            $total=0;
+            $user = User::where('token', $request->token)->first();
+            $order = new orders();
+            $order->user_id = $user->id;
+            $order->order_status_id = 1;
+            $order->save();
+
+            foreach ($orderItems as $key => $array){
+
+                foreach ($array as $service => $id){
+
+                    $orderItem = new order_items();
+                    $orderItem->orders_id = $order->id;
+                    $orderItem->service_id = $id->service_id;
+                    $orderItem->original_price = service::find($id->service_id)->price;
+                    $total +=   service::find($id->service_id)->price;
+                    $orderItem->after_discount_price = service::find($id->service_id)->price;
+                    $orderItem->save();
+                }
+
+            }
+            $order->subtotal = $total;
+            $order->after_discount_price =$total;
+            $order->save();
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "New Order Added" , "data"=>$order->id], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getOrder(Request $request)
+    {
+        try{
+
+            $order = orders::find($request->order_id);
+            $orderItems = $order->getItems;
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Order Found" , "data"=>$orderItems], 200);
 
         }
         catch(Exception $ex)

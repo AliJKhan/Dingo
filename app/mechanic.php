@@ -4,21 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class service extends Model
+class mechanic extends Model
 {
-    protected $table = 'service';
-
-
+    protected $table = 'mechanic';
+    public $timestamps = false;
 
     public function getName()
     {
         return $this->name;
     }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
 
 }
