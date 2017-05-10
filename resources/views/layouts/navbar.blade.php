@@ -34,7 +34,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('services')}}">Services</a></li>
                                 <li><a href="{{route('orders')}}">Orders</a></li>
-                                <li><a href="http://www.jquery2dotnet.com">Something else here</a></li>
+                                <li><a href="{{route('mechanics')}}">Mechanics</a></li>
                                 <li class="divider"></li>
                                 <li><a href="http://www.jquery2dotnet.com">Separated link</a></li>
                                 <li class="divider"></li>

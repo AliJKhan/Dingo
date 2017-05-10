@@ -9,6 +9,7 @@ use App\battery_brand;
 use App\brake_pad_brand;
 use App\brake_pad_price;
 use App\car_models;
+use App\mechanic;
 use App\modelnyear;
 use App\oil_filter_brands;
 use App\oil_filter_price;
@@ -268,6 +269,35 @@ class ServicesController extends Controller
     {
         Session::flash('alert-warning', 'Deleted');
         return redirect()->action('ServicesController@index');
+
+    }
+
+    public function mechanicsIndex(Request $request)
+    {
+
+        $mechanics = mechanic::all();
+        return view('mechanics.index')
+            ->with('mechanics',$mechanics);
+
+    }
+
+    public function addMechanic(Request $request)
+    {
+
+
+        return view('mechanics.add');
+
+    }
+
+    public function newMechanic(Request $request)
+    {
+
+        $mechanic = new mechanic();
+        $mechanic->name = $request->name;
+        $mechanic->phone_number = $request->phone_number;
+        $mechanic->save();
+
+        return redirect()->action('ServicesController@mechanicsIndex');
 
     }
 }
