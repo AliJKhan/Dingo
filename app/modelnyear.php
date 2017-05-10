@@ -13,4 +13,16 @@ class modelnyear extends Model
         return $this->hasOne('App\engine_oil_capacity');
     }
 
+    public function getModel()
+    {
+
+        return $this->belongsTo('App\car_models','car_models_id');
+    }
+
+    public function getYear()
+    {
+
+        return $this->belongsTo('App\years','years_id');
+    }
+
 }

@@ -18,4 +18,10 @@ class car_models extends Model
         return $this->hasOne('App\engine_oil_capacity');
     }
 
+    public function getMake()
+    {
+
+        return $this->belongsTo('App\make','make_id');
+    }
+
 }

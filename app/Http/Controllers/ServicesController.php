@@ -24,41 +24,8 @@ class ServicesController extends Controller
     public function index(Request $request)
     {
         $services = service::all();
-        $batteryBrands = \DB::table('battery_brand')
-            ->join('battery_amps', function($join)
-            {
-                $join->on('battery_brand.id', '=', 'battery_amps.battery_brand_id');
-            })
-            ->get();
-
-        $airFilters = \DB::table('air_filter_brands')->distinct()
-            ->join('air_filter_price', function($join)use($request)
-            {
-                $join->on('air_filter_price.air_filter_brands_id', '=', 'air_filter_brands.id');
-            })
-            ->get();
-
-        $oilFilters = \DB::table('oil_filter_brands')
-            ->join('oil_filter_price', function($join)use($request)
-            {
-                $join->on('oil_filter_price.oil_filter_brands_id', '=', 'oil_filter_brands.id');
-            })
-            ->get();
-
-        $brakePadBrands = \DB::table('brake_pad_brand')
-            ->join('brake_pad_price', function($join)use($request)
-            {
-                $join->on('brake_pad_price.brake_pad_brand_id', '=', 'brake_pad_brand.id');
-            })
-            ->get();
-
         return view('services.index')
-            ->with('services',$services)
-            ->with('batteryBrands',$batteryBrands)
-            ->with('airFilters',$airFilters)
-            ->with('oilFilters',$oilFilters)
-            ->with('brakePadBrands',$brakePadBrands);
-
+            ->with('services',$services);
     }
 
     public function editService(Request $request)
@@ -331,4 +298,71 @@ class ServicesController extends Controller
         return redirect()->action('ServicesController@mechanics');
 
     }
+
+    public function airFilters(Request $request)
+    {
+
+        $airFilters = \DB::table('air_filter_brands')->distinct()
+            ->join('air_filter_price', function($join)use($request)
+            {
+                $join->on('air_filter_price.air_filter_brands_id', '=', 'air_filter_brands.id');
+            })
+            ->paginate(25);
+
+        return view('services.airfilters')
+            ->with('airFilters',$airFilters);
+
+    }
+
+    public function batteries(Request $request)
+    {
+
+        $batteryBrands = \DB::table('battery_brand')
+            ->join('battery_amps', function($join)
+            {
+                $join->on('battery_brand.id', '=', 'battery_amps.battery_brand_id');
+            })
+            ->paginate(25);
+
+        return view('services.batteries')
+            ->with('batteryBrands',$batteryBrands);
+
+    }
+
+    public function oilFilters(Request $request)
+    {
+
+
+        $oilFilters = \DB::table('oil_filter_brands')
+            ->join('oil_filter_price', function($join)use($request)
+            {
+                $join->on('oil_filter_price.oil_filter_brands_id', '=', 'oil_filter_brands.id');
+            })
+            ->paginate(25);
+
+        return view('services.oilFilters')
+            ->with('oilFilters',$oilFilters);
+
+    }
+
+    public function breakPads(Request $request)
+    {
+
+
+        $brakePadBrands = \DB::table('brake_pad_brand')
+            ->join('brake_pad_price', function($join)use($request)
+            {
+                $join->on('brake_pad_price.brake_pad_brand_id', '=', 'brake_pad_brand.id');
+            })
+            ->paginate(25);
+
+        return view('services.brakePads')
+            ->with('brakePadBrands',$brakePadBrands);
+
+    }
+
+
+
+
 }
+

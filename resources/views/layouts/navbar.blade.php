@@ -33,6 +33,10 @@
                             <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('services')}}">Services</a></li>
+                                <li><a href="{{route('airFilters')}}">Air Filters</a></li>
+                                <li><a href="{{route('oilFilters')}}">Oil Filters</a></li>
+                                <li><a href="{{route('batteries')}}">Batteries</a></li>
+                                <li><a href="{{route('breakPads')}}">Brake Pad</a></li>
                                 <li><a href="{{route('orders')}}">Orders</a></li>
                                 <li><a href="{{route('mechanics')}}">Mechanics</a></li>
                                 <li class="divider"></li>
