@@ -242,7 +242,9 @@ class ServicesController extends Controller
             default:
         }
 
-        return redirect()->action('ServicesController@index');
+       // return redirect()->action('ServicesController@index');
+        Session::flash('alert-success', 'Object Added');
+        return redirect()->action('ServicesController@addService');
 
     }
 
