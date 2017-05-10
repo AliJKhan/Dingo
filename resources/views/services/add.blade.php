@@ -39,10 +39,19 @@
                 </div>
             </div>
 
-            <div class="form-group " id="years">
-                <label class="col-md-4 control-label" for="years">Select Year:</label>
+            <div class="form-group " id="yearFDiv">
+                <label class="col-md-4 control-label" for="years">Year From:</label>
                 <div class="col-md-4 ">
-                    <select name="modelnyear" class="form-control" id="selectYears" >
+                    <select name="yearFrom" class="form-control" id="yearFrom" >
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group " id="yearTDiv">
+                <label class="col-md-4 control-label" for="years">Year To:</label>
+                <div class="col-md-4 ">
+                    <select name="yearTo" class="form-control" id="yearTo" >
 
                     </select>
                 </div>
@@ -86,7 +95,8 @@
     $(function() {
         $('#ampere').hide();
         $('#modelSelect').hide();
-        $('#years').hide();
+        $('#yearFDiv').hide();
+        $('#yearTDiv').hide();
 
         $('#selectMe').change(function(){
             if($('#selectMe').val() == 2) {
@@ -94,12 +104,13 @@
             } else {
                 $('#ampere').hide();
                 $('#modelSelect').hide();
-                $('#years').hide();
+                $('#yearFDiv').hide();
+                $('#yearTDiv').hide();
             }
         });
 
         $('#selectMe').change(function(){
-            if($('#selectMe').val() == 3 || $('#selectMe').val() == 4 || $('#selectMe').val() == 5) {
+            if($('#selectMe').val() == 2 || $('#selectMe').val() == 3 || $('#selectMe').val() == 4 || $('#selectMe').val() == 5) {
                 $('#modelSelect').show();
 
             } else {
@@ -110,7 +121,8 @@
 
         $('#car_models').change(function(){
 
-            $('#selectYears').empty();
+            $('#yearFrom').empty();
+            $('#yearTo').empty();
 
             $.ajax({
                 url: '{{route('modelnyear')}}',
@@ -122,13 +134,18 @@
                 },
                 dataType: 'json',
                 success: function(result) {
-                    var options = $("#selectYears");
+                    var yearFrom = $("#yearFrom");
+                    var yearTo = $("#yearTo");
+
                     console.log(result);
                     $.each(result.data, function(key, value) {
 
-                        options.append($("<option />").val(value.id).html(value.name));
+                        yearFrom.append($("<option />").val(value.id).html(value.name));
+                        yearTo.append($("<option />").val(value.id).html(value.name));
+
                     });
-                    $('#years').show();
+                    $('#yearFDiv').show();
+                    $('#yearTDiv').show();
                 },
                 type: 'GET'
             });

@@ -11,6 +11,7 @@ use App\brake_pad_price;
 use App\car_models;
 use App\mechanic;
 use App\modelnyear;
+use App\modelnyear_battery;
 use App\oil_filter_brands;
 use App\oil_filter_price;
 use App\service;
@@ -30,7 +31,7 @@ class ServicesController extends Controller
             })
             ->get();
 
-        $airFilters = \DB::table('air_filter_brands')
+        $airFilters = \DB::table('air_filter_brands')->distinct()
             ->join('air_filter_price', function($join)use($request)
             {
                 $join->on('air_filter_price.air_filter_brands_id', '=', 'air_filter_brands.id');
@@ -184,6 +185,19 @@ class ServicesController extends Controller
     public function newService(Request $request)
     {
 
+
+        $yearFrom = $request->get('yearFrom');
+        $yearTo = $request->get('yearTo');
+        $yearCount = $yearFrom+0;
+
+        if($yearFrom+0>$yearTo+0){
+            Session::flash('alert-danger', 'Year from cannot be greater than to');
+            return redirect()->action('ServicesController@addService');
+        }
+
+
+
+
         $type = $request->selection;
         switch ($type) {
             case 1:
@@ -205,17 +219,28 @@ class ServicesController extends Controller
                 $batteryPrice->price = $request->price;
                 $batteryPrice->save();
 
+
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $modelnyearBattery = new modelnyear_battery();
+                    $modelnyearBattery->modelnyear_id = $yearCount;
+                    $modelnyearBattery->amps    =   $request->amps;
+                    $modelnyearBattery->save();
+                }
+
+
                 break;
             case 3:
                 $airFilter = new air_filter_brands();
                 $airFilter->name = $request->name;
                 $airFilter->save();
 
-                $filterPrice = new air_filter_price();
-                $filterPrice->air_filter_brands_id = $airFilter->id;
-                $filterPrice->modelnyear_id = $request->modelnyear;
-                $filterPrice->price = $request->price;
-                $filterPrice->save();
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $filterPrice = new air_filter_price();
+                    $filterPrice->air_filter_brands_id = $airFilter->id;
+                    $filterPrice->modelnyear_id = $yearCount;
+                    $filterPrice->price = $request->price;
+                    $filterPrice->save();
+                }
 
                 break;
             case 4:
@@ -223,26 +248,30 @@ class ServicesController extends Controller
                 $oilFilter->name = $request->name;
                 $oilFilter->save();
 
-                $filterPrice = new oil_filter_price();
-                $filterPrice->oil_filter_brands_id = $oilFilter->id;
-                $filterPrice->modelnyear_id = $request->modelnyear;
-                $filterPrice->price = $request->price;
-                $filterPrice->save();
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $filterPrice = new oil_filter_price();
+                    $filterPrice->oil_filter_brands_id = $oilFilter->id;
+                    $filterPrice->modelnyear_id = $yearCount;
+                    $filterPrice->price = $request->price;
+                    $filterPrice->save();
+                }
                 break;
             case 5:
                 $breakPad = new brake_pad_brand();
                 $breakPad->name = $request->name;
                 $breakPad->save();
 
-                $breakPadPrice = new brake_pad_price();
-                $breakPadPrice->brake_pad_brand_id = $breakPad->id;
-                $breakPadPrice->modelnyear_id = $request->modelnyear;
-                $breakPadPrice->price = $request->price;
-                $breakPadPrice->save();
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $breakPadPrice = new brake_pad_price();
+                    $breakPadPrice->brake_pad_brand_id = $breakPad->id;
+                    $breakPadPrice->modelnyear_id = $yearCount;
+                    $breakPadPrice->price = $request->price;
+                    $breakPadPrice->save();
+                }
             default:
         }
 
-       // return redirect()->action('ServicesController@index');
+        // return redirect()->action('ServicesController@index');
         Session::flash('alert-success', 'Object Added');
         return redirect()->action('ServicesController@addService');
 
