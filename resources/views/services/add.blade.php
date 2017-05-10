@@ -2,7 +2,7 @@
 @extends('layouts.navbar')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="container">
-    <form class="form-horizontal" method="post" action="{{route('newMechanic')}}">
+    <form class="form-horizontal" method="post" action="{{route('newService')}}">
         <fieldset>
 
 

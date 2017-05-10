@@ -272,7 +272,7 @@ class ServicesController extends Controller
 
     }
 
-    public function mechanicsIndex(Request $request)
+    public function mechanics(Request $request)
     {
 
         $mechanics = mechanic::all();
@@ -297,7 +297,7 @@ class ServicesController extends Controller
         $mechanic->phone_number = $request->phone_number;
         $mechanic->save();
 
-        return redirect()->action('ServicesController@mechanicsIndex');
+        return redirect()->action('ServicesController@mechanics');
 
     }
 }

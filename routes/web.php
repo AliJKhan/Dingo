@@ -44,7 +44,7 @@ Route::group(['middleware' => ['sentinelCheck']], function () {
     Route::get('services/add', [ 'as' => 'addService', 'uses' => 'ServicesController@addService']);
     Route::post('services/store', [ 'as' => 'newService', 'uses' => 'ServicesController@newService']);
     Route::get('services/delete', [ 'as' => 'deleteService', 'uses' => 'ServicesController@deleteService']);
-    Route::get('mechanics/index', [ 'as' => 'mechanics', 'uses' => 'ServicesController@mechanicsIndex']);
+    Route::get('mechanics/index', [ 'as' => 'mechanics', 'uses' => 'ServicesController@mechanics']);
     Route::get('mechanics/add', [ 'as' => 'addMechanic', 'uses' => 'ServicesController@addMechanic']);
     Route::post('mechanics/store', [ 'as' => 'newMechanic', 'uses' => 'ServicesController@newMechanic']);
 
