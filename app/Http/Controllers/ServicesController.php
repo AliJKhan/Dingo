@@ -361,6 +361,45 @@ class ServicesController extends Controller
 
     }
 
+    public function addModelnyear(Request $request)
+    {
+
+
+        $carModels = car_models::all();
+        $years  = years::all();
+
+
+        return view('services.modelnyear')
+            ->with('carModels',$carModels)
+            ->with('years',$years);
+
+    }
+
+    public function newModelnyear(Request $request)
+    {
+
+
+        $yearFrom = $request->get('yearFrom');
+        $yearTo = $request->get('yearTo');
+        $yearCount = $yearFrom+0;
+
+        if($yearFrom+0>$yearTo+0){
+            Session::flash('alert-danger', 'Year from cannot be greater than To');
+            return redirect()->action('ServicesController@addModelnyear');
+        }
+
+
+        for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+           $modelnyear = new modelnyear();
+           $modelnyear->car_models_id = $request->car_models;
+           $modelnyear->years_id = $yearCount;
+           $modelnyear->save();
+        }
+
+        Session::flash('alert-success', 'Object Added');
+        return redirect()->action('ServicesController@addModelnyear');
+
+    }
 
 
 

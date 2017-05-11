@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class modelnyear extends Model
 {
     protected $table = 'modelnyear';
+    public $timestamps = false;
     public function getCapacity()
     {
 

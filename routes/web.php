@@ -42,10 +42,14 @@ Route::group(['middleware' => ['sentinelCheck']], function () {
     Route::get('services/edit', [ 'as' => 'editService', 'uses' => 'ServicesController@editService']);
     Route::post('services/update', [ 'as' => 'updateService', 'uses' => 'ServicesController@updateService']);
     Route::get('services/add', [ 'as' => 'addService', 'uses' => 'ServicesController@addService']);
+
     Route::get('airfilters/index', [ 'as' => 'airFilters', 'uses' => 'ServicesController@airFilters']);
     Route::get('battery/index', [ 'as' => 'batteries', 'uses' => 'ServicesController@batteries']);
     Route::get('oilFilters/index', [ 'as' => 'oilFilters', 'uses' => 'ServicesController@oilFilters']);
     Route::get('breakPads/index', [ 'as' => 'breakPads', 'uses' => 'ServicesController@breakPads']);
+
+    Route::get('modelnyear/index', [ 'as' => 'addModelnyear', 'uses' => 'ServicesController@addModelnyear']);
+    Route::post('modelnyear/add', [ 'as' => 'newModelnyear', 'uses' => 'ServicesController@newModelnyear']);
 
 
 
