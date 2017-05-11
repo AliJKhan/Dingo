@@ -23,7 +23,7 @@ Route::get('signup', [ 'as' => 'signup', 'uses' => 'WebController@signUp']);
 
 
 
-Route::group(['middleware' => ['sentinelCheck']], function () {
+Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'WebController@dashboard']);
     Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
     Route::get('modelnyear', [ 'as' => 'modelnyear', 'uses' => 'ServicesController@getModelnyear']);

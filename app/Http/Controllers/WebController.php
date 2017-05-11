@@ -50,7 +50,7 @@ class WebController extends Controller
 
                 'email' => $request->get('email'),
                 'password' => $request->get('password'),
-                'token'=>'',
+                'token'=> str_random(30),
                 'phone_number'=>'',
 
 

@@ -55,6 +55,9 @@ class Handler extends ExceptionHandler
         }
         else if($exception instanceof TokenBlacklistedException){
             return response()->json(['token is blacklisted',$exception->getStatusCode()]);
+        }else if($exception instanceof TokenMismatchException) {
+
+            return redirect(route('index'))->with('message', 'You page session expired. Please try again');
         }
 
         return parent::render($request, $exception);
