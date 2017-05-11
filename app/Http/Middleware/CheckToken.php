@@ -18,8 +18,9 @@ class CheckToken
     public function handle($request, Closure $next)
     {
 
+        $user = User::where('token', $request->get('token'))->first();
 
-        if (!$request->token) {
+        if (!$request->token || !$user) {
             return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "Token not present or false", 'data' => $request->all()], 200);
         }
 

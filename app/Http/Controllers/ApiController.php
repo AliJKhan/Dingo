@@ -116,6 +116,10 @@ class ApiController extends Controller
                     if($user){
                         return response()->json(['response_code' => ConstantsController::OTP_VERIFIED_USER_ALREADY_EXITS, 'message' => "Pin verified, User already SignedUp", 'data' =>['user_id'=>$user->id,'token'=>$user->token]], 200);
                     }
+                    $ownedCars = $user->getAllCars;
+                    if(!$ownedCars->first()){
+                        return response()->json(['response_code' => ConstantsController::USER_EXISTS_NO_CARS_FOUND, 'message' => "No Cars Found" , "data"=>""], 200);
+                    }
                     $role = Sentinel::findRoleByName('User');
 
                     $user = new User();
