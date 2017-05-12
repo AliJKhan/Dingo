@@ -9,7 +9,7 @@ class CarsController extends Controller
 {
     public function viewCar(Request $request)
     {
-        $ownedCar = owned_cars::find($request->get('id'))->first();
+        $ownedCar = owned_cars::find($request->get('id'));
 
         return view('cars.view')
             ->with('ownedCar',$ownedCar);
@@ -20,7 +20,7 @@ class CarsController extends Controller
     {
 
 
-        $ownedCar = owned_cars::find($request->get('id'))->first();
+        $ownedCar = owned_cars::find($request->get('id'));
 
         return view('cars.edit')
             ->with('ownedCar',$ownedCar);
