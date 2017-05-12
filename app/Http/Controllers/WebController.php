@@ -94,7 +94,7 @@ class WebController extends Controller
 
 
         Sentinel::logout();
-        return view('welcome');
+        return redirect()->action('WebController@index');
 
     }
 

@@ -20,10 +20,10 @@ class CheckAdmin
         $user = Sentinel::getUser();
 
         if ($user->inRole('admin')) {
-            return redirect()->action('WebController@index');
+
         }
         else{
-
+            return redirect()->action('WebController@index');
         }
         return $next($request);
     }

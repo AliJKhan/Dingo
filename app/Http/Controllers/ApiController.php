@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\order_items;
 use App\orders;
-use Validator;;
+use Validator;
 use App\otp_verification,
     App\User,
     App\car_models,
@@ -364,7 +364,8 @@ class ApiController extends Controller
     public function updateOwnedCar(Request $request)
     {
         try{
-            $ownedCar = owned_cars::find($request->get('id'))->first();
+            dd($request->all());
+            $ownedCar = owned_cars::find($request->id)->first();
             $ownedCar->fill($request->all());
             $ownedCar->save();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Updated" , "data"=>""], 200);

@@ -34,6 +34,7 @@ class CarsController extends Controller
         $ownedCar->fill($request->all());
         $ownedCar->save();
 
+
         return view('cars.view')
             ->with('ownedCar',$ownedCar);
 

@@ -23,12 +23,10 @@ Route::get('signup', [ 'as' => 'signup', 'uses' => 'WebController@signUp']);
 
 
 
-Route::group(['middleware' => ['sentinelCheck']], function () {
+Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'WebController@dashboard']);
     Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
     Route::get('modelnyear', [ 'as' => 'modelnyear', 'uses' => 'ServicesController@getModelnyear']);
-
-
 
 
     /* CARS CONTROLLER  */
@@ -59,17 +57,11 @@ Route::group(['middleware' => ['sentinelCheck']], function () {
     Route::get('mechanics/add', [ 'as' => 'addMechanic', 'uses' => 'ServicesController@addMechanic']);
     Route::post('mechanics/store', [ 'as' => 'newMechanic', 'uses' => 'ServicesController@newMechanic']);
 
-
-
-
     /* Orders CONTROLLER  */
     Route::get('orders/index', [ 'as' => 'orders', 'uses' => 'OrdersController@index']);
     Route::get('orders/view', [ 'as' => 'viewOrders', 'uses' => 'OrdersController@viewOrders']);
     Route::get('orders/edit', [ 'as' => 'editOrders', 'uses' => 'OrdersController@editOrders']);
     Route::post('orders/update', [ 'as' => 'updateOrders', 'uses' => 'OrdersController@updateOrders']);
-
-
-
 
 
 });
