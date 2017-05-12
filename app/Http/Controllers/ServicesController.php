@@ -155,7 +155,7 @@ class ServicesController extends Controller
 
     public function newService(Request $request)
     {
-        
+
         $yearFrom = $request->get('yearFrom');
         $yearTo = $request->get('yearTo');
         $yearCount = $yearFrom+0;

@@ -306,7 +306,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getOilChangePrices(Request $request)
+    public function getOilBrandsWithPrices(Request $request)
     {
         try{
 
