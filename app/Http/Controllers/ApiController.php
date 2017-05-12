@@ -364,7 +364,7 @@ class ApiController extends Controller
     public function updateOwnedCar(Request $request)
     {
         try{
-            dd($request->all());
+            dd($request->id);
             $ownedCar = owned_cars::find($request->id)->first();
             $ownedCar->fill($request->all());
             $ownedCar->save();
