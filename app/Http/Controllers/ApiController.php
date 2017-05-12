@@ -364,7 +364,12 @@ class ApiController extends Controller
     public function updateOwnedCar(Request $request)
     {
         try{
-            dd($request->id);
+            if($request->id==0){
+                return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "Car ID is 0" , "data"=>""], 200);
+
+            }
+
+
             $ownedCar = owned_cars::find($request->id)->first();
             $ownedCar->fill($request->all());
             $ownedCar->save();
