@@ -14,6 +14,7 @@
                         <option value="4">Oil Filter</option>
                         <option value="5">Brake Pad</option>
                         <option value="6">Model and Year Battery </option>
+                        <option value="7">Battery Amps</option>
                     </select>
                 </div>
             </div>
@@ -26,6 +27,17 @@
                 </div>
             </div>
 
+            <div class="form-group" id="batteriesDiv">
+                <label class="col-md-4 control-label" for="models">Select Battery:</label>
+                <div class="col-md-4 ">
+                    <select name="battery" class="form-control" id="battery" >
+                        <option value=""></option>
+                        @foreach($batteries as $battery)
+                            <option value="{{$battery->id}}">{{$battery->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="form-group" id="modelSelect">
                 <label class="col-md-4 control-label" for="models">Select Model:</label>
                 <div class="col-md-4 ">
@@ -80,7 +92,7 @@
             <div class="form-group" id="priceDiv">
                 <label class="col-md-4 control-label" for="textinput" >Price</label>
                 <div class="col-md-4">
-                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value=""  re>
+                    <input id="textinput" name="price" type="text" placeholder="2000" class="form-control input-md" value="" >
 
 
                 </div>
@@ -108,25 +120,36 @@
             $('#modelSelect').hide();
             $('#yearFDiv').hide();
             $('#yearTDiv').hide();
+            $('#batteriesDiv').hide();
         });
         $('#ampere').hide();
         $('#ampsDiv').hide();
         $('#modelSelect').hide();
         $('#yearFDiv').hide();
         $('#yearTDiv').hide();
+        $('#batteriesDiv').hide();
 
+        $('#selectMe').change(function(){
+            if($('#selectMe').val() == 1) {
 
+                $('#priceDiv').show();
 
+            } else {
+
+            }
+        });
 
         $('#selectMe').change(function(){
             if($('#selectMe').val() == 2) {
-                $('#ampere').show();
+
+                $('#priceDiv').hide();
 
             } else {
                 $('#ampere').hide();
                 $('#modelSelect').hide();
                 $('#yearFDiv').hide();
                 $('#yearTDiv').hide();
+
             }
         });
 
@@ -134,7 +157,7 @@
             if( $('#selectMe').val() == 3 || $('#selectMe').val() == 4 || $('#selectMe').val() == 5) {
                 $('#modelSelect').show();
                 $('#ampsDiv').hide();
-
+                $('#priceDiv').show();
             } else {
                 $('#modelSelect').hide();
 
@@ -185,7 +208,21 @@
 
             } else {
                 $('#nameDiv').show();
-                $('#priceDiv').show();
+
+
+            }
+        });
+
+        $('#selectMe').change(function(){
+            if($('#selectMe').val() == 7) {
+                $('#batteriesDiv').show();
+                $('#nameDiv').hide();
+                $('#ampere').show();
+
+
+            } else {
+
+
 
             }
         });

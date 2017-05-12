@@ -144,16 +144,18 @@ class ServicesController extends Controller
     {
         $models = car_models::all();
         $amps = battery_amps::all();
+        $batteries = battery_brand::all();
 
         return view('services.add')
             ->with('models',$models)
-            ->with('amps',$amps);
+            ->with('amps',$amps)
+            ->with('batteries',$batteries);
 
     }
 
     public function newService(Request $request)
     {
-
+      
         $yearFrom = $request->get('yearFrom');
         $yearTo = $request->get('yearTo');
         $yearCount = $yearFrom+0;
@@ -181,11 +183,7 @@ class ServicesController extends Controller
                 $battery->name = $request->objectName;
                 $battery->save();
 
-                $batteryPrice = new battery_amps();
-                $batteryPrice->battery_brand_id = $battery->id;
-                $batteryPrice->amps = $request->amps;
-                $batteryPrice->price = $request->price;
-                $batteryPrice->save();
+
 
 
 
@@ -239,6 +237,14 @@ class ServicesController extends Controller
                     $modelnyearBattery->amps = $request->ampsSelect;
                     $modelnyearBattery->save();
                 }
+            case 7:
+
+
+                $batteryPrice = new battery_amps();
+                $batteryPrice->battery_brand_id = $request->battery;
+                $batteryPrice->amps = $request->amps;
+                $batteryPrice->price = $request->price;
+                $batteryPrice->save();
             default:
         }
 
