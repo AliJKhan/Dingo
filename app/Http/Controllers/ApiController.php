@@ -229,7 +229,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getOilFilterPrice(Request $request)
+    public function getOilFilterBrandsWithPrices(Request $request)
     {
         try{
 
@@ -267,7 +267,7 @@ class ApiController extends Controller
         }
     }
 
-    public function getAirFilterPrice(Request $request)
+    public function getAirFilterBrandsWithPrices(Request $request)
     {
         try{
 
