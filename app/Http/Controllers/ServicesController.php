@@ -155,7 +155,7 @@ class ServicesController extends Controller
 
     public function newService(Request $request)
     {
-      
+        
         $yearFrom = $request->get('yearFrom');
         $yearTo = $request->get('yearTo');
         $yearCount = $yearFrom+0;
@@ -182,11 +182,6 @@ class ServicesController extends Controller
                 $battery = new battery_brand();
                 $battery->name = $request->objectName;
                 $battery->save();
-
-
-
-
-
                 break;
             case 3:
                 $airFilter = new air_filter_brands();
@@ -227,6 +222,7 @@ class ServicesController extends Controller
                     $breakPadPrice->price = $request->price;
                     $breakPadPrice->save();
                 }
+                break;
             case 6:
 
 
@@ -237,6 +233,7 @@ class ServicesController extends Controller
                     $modelnyearBattery->amps = $request->ampsSelect;
                     $modelnyearBattery->save();
                 }
+                break;
             case 7:
 
 
@@ -400,10 +397,10 @@ class ServicesController extends Controller
 
 
         for($yearCount;$yearCount<=$yearTo;$yearCount++) {
-           $modelnyear = new modelnyear();
-           $modelnyear->car_models_id = $request->car_models;
-           $modelnyear->years_id = $yearCount;
-           $modelnyear->save();
+            $modelnyear = new modelnyear();
+            $modelnyear->car_models_id = $request->car_models;
+            $modelnyear->years_id = $yearCount;
+            $modelnyear->save();
         }
 
         Session::flash('alert-success', 'Object Added');
