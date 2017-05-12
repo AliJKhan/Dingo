@@ -143,15 +143,16 @@ class ServicesController extends Controller
     public function addService(Request $request)
     {
         $models = car_models::all();
+        $amps = battery_amps::all();
 
         return view('services.add')
-            ->with('models',$models);
+            ->with('models',$models)
+            ->with('amps',$amps);
 
     }
 
     public function newService(Request $request)
     {
-
 
         $yearFrom = $request->get('yearFrom');
         $yearTo = $request->get('yearTo');
@@ -169,7 +170,7 @@ class ServicesController extends Controller
         switch ($type) {
             case 1:
                 $service = new service();
-                $service->name = $request->name;
+                $service->name = $request->objectName;
                 $service->price = $request->price;
                 $service->save();
 
@@ -177,7 +178,7 @@ class ServicesController extends Controller
             case 2:
 
                 $battery = new battery_brand();
-                $battery->name = $request->name;
+                $battery->name = $request->objectName;
                 $battery->save();
 
                 $batteryPrice = new battery_amps();
@@ -187,18 +188,11 @@ class ServicesController extends Controller
                 $batteryPrice->save();
 
 
-                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
-                    $modelnyearBattery = new modelnyear_battery();
-                    $modelnyearBattery->modelnyear_id = $yearCount;
-                    $modelnyearBattery->amps    =   $request->amps;
-                    $modelnyearBattery->save();
-                }
-
 
                 break;
             case 3:
                 $airFilter = new air_filter_brands();
-                $airFilter->name = $request->name;
+                $airFilter->name = $request->objectName;
                 $airFilter->save();
 
                 for($yearCount;$yearCount<=$yearTo;$yearCount++) {
@@ -212,7 +206,7 @@ class ServicesController extends Controller
                 break;
             case 4:
                 $oilFilter = new oil_filter_brands();
-                $oilFilter->name = $request->name;
+                $oilFilter->name = $request->objectName;
                 $oilFilter->save();
 
                 for($yearCount;$yearCount<=$yearTo;$yearCount++) {
@@ -225,7 +219,7 @@ class ServicesController extends Controller
                 break;
             case 5:
                 $breakPad = new brake_pad_brand();
-                $breakPad->name = $request->name;
+                $breakPad->name = $request->objectName;
                 $breakPad->save();
 
                 for($yearCount;$yearCount<=$yearTo;$yearCount++) {
@@ -234,6 +228,16 @@ class ServicesController extends Controller
                     $breakPadPrice->modelnyear_id = $yearCount;
                     $breakPadPrice->price = $request->price;
                     $breakPadPrice->save();
+                }
+            case 6:
+
+
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $modelnyearBattery = new modelnyear_battery();
+
+                    $modelnyearBattery->modelnyear_id = $yearCount;
+                    $modelnyearBattery->amps = $request->ampsSelect;
+                    $modelnyearBattery->save();
                 }
             default:
         }
