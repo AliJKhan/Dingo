@@ -48,7 +48,7 @@ class ApiController extends Controller
 
 
 
-            $optRequest =  otp_verification::where('phone_number', $mobile)->first();
+            $optRequest =  otp_verification::where('phone_number', $mobile);
 
             if($optRequest){
 
@@ -110,9 +110,9 @@ class ApiController extends Controller
 
                 $otp = otp_verification::where('phone_number', $mobile)
                     ->where( 'otp_pin', $pin )
-                    ->first();
+                    ->firstOrFail();
                 if($otp) {
-                    $user = User::where('phone_number', $mobile)->first();
+                    $user = User::where('phone_number', $mobile);
 
                     if($user){
                         $ownedCars = $user->getAllCars;
@@ -329,7 +329,7 @@ class ApiController extends Controller
     public function postOwnedCar(Request $request)
     {
         try{
-            $user = User::where('token', $request->get('token'))->first();
+            $user = User::where('token', $request->get('token'));
             $ownedCar = new owned_cars();
             $ownedCar->fill($request->all());
             $ownedCar->primary_id = $request->get('primary_id');
@@ -347,7 +347,7 @@ class ApiController extends Controller
     public function getOwnedCars(Request $request)
     {
         try{
-            $user = User::where('token', $request->get('token'))->first();
+            $user = User::where('token', $request->get('token'));
 
             $ownedCars = $user->getAllCars;
             if(!$ownedCars->first()){
@@ -393,7 +393,7 @@ class ApiController extends Controller
             $ownedCar = owned_cars::find($orderItems->id);
 
             $total=0;
-            $user = User::where('token', $request->token)->first();
+            $user = User::where('token', $request->token);
 
             $order = new orders();
             $order->user_id = $user->id;
