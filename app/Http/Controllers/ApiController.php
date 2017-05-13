@@ -297,10 +297,10 @@ class ApiController extends Controller
         try{
 
             $services = \DB::table('service')
-                ->join('years', function($join)use($request)
+                ->join('modelnyear_service', function($join)use($request)
                 {
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
-                        ->where('modelnyear.car_models_id',$request->get('model_id'));
+                        ->where('modelnyear_service.modelnyear_id',$request->get('modelnyear_id'));
                 })
                 ->get();
 
