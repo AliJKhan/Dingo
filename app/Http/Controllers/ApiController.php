@@ -300,8 +300,9 @@ class ApiController extends Controller
                 ->join('modelnyear_service', function($join)use($request)
                 {
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
-                        ->where('modelnyear_service.modelnyear_id',$request->get('modelnyear_id'));
+                        ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
+                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.type as type','service.description as description')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
@@ -412,7 +413,7 @@ class ApiController extends Controller
 
 
 
-                       $orderItem = new order_items();
+                     $orderItem = new order_items();
                      $orderItem->orders_id = $order->id;
                      $orderItem->service_id = $id->service_id;
                      $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
