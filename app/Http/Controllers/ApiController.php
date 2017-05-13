@@ -48,7 +48,7 @@ class ApiController extends Controller
 
 
 
-            $optRequest =  otp_verification::where('phone_number', $mobile);
+            $optRequest =  otp_verification::where('phone_number', $mobile)->first();
 
             if($optRequest){
 
@@ -110,9 +110,9 @@ class ApiController extends Controller
 
                 $otp = otp_verification::where('phone_number', $mobile)
                     ->where( 'otp_pin', $pin )
-                    ->firstOrFail();
+                    ->first();
                 if($otp) {
-                    $user = User::where('phone_number', $mobile);
+                    $user = User::where('phone_number', $mobile)->first();
 
                     if($user){
                         $ownedCars = $user->getAllCars;
@@ -329,7 +329,7 @@ class ApiController extends Controller
     public function postOwnedCar(Request $request)
     {
         try{
-            $user = User::where('token', $request->get('token'));
+            $user = User::where('token', $request->get('token'))->first();
             $ownedCar = new owned_cars();
             $ownedCar->fill($request->all());
             $ownedCar->primary_id = $request->get('primary_id');
@@ -347,7 +347,7 @@ class ApiController extends Controller
     public function getOwnedCars(Request $request)
     {
         try{
-            $user = User::where('token', $request->get('token'));
+            $user = User::where('token', $request->get('token'))->first();
 
             $ownedCars = $user->getAllCars;
             if(!$ownedCars->first()){
@@ -371,7 +371,7 @@ class ApiController extends Controller
             }
 
 
-            $ownedCar = owned_cars::find($request->id);
+            $ownedCar = owned_cars::find($request->id)->first();
             $ownedCar->fill($request->all());
             $ownedCar->save();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Updated" , "data"=>""], 200);
@@ -393,7 +393,7 @@ class ApiController extends Controller
             $ownedCar = owned_cars::find($orderItems->id);
 
             $total=0;
-            $user = User::where('token', $request->token);
+            $user = User::where('token', $request->token)->first();
 
             $order = new orders();
             $order->user_id = $user->id;
@@ -402,14 +402,17 @@ class ApiController extends Controller
 
             foreach ($orderItems->order_items as $key => $array){
 
-                foreach ($array as $service => $id){
-                    $orderItem = new order_items();
-                    $orderItem->orders_id = $order->id;
-                    $orderItem->service_id = $id;
-                    $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $orderItem->save();
+                   foreach ($array as $service => $id){
+
+
+
+                       $orderItem = new order_items();
+                     $orderItem->orders_id = $order->id;
+                     $orderItem->service_id = $id->service_id;
+                     $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                     $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                     $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                     $orderItem->save();
                 }
 
             }
