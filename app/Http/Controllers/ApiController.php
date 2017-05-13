@@ -205,6 +205,7 @@ class ApiController extends Controller
                     $join->on('modelnyear.years_id', '=', 'years.id')
                         ->where('modelnyear.car_models_id',$request->get('model_id'));
                 })
+                ->select('modelnyear.id as id','modelnyear.car_models_id as car_models_id','years.id as years_id','years.name as name')
                 ->get();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Models Found" , "data"=>$modelsNYear], 200);
 
