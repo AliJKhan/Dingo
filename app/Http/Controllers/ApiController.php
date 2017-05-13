@@ -296,7 +296,13 @@ class ApiController extends Controller
     {
         try{
 
-            $services = service::all();
+            $services = \DB::table('service')
+                ->join('years', function($join)use($request)
+                {
+                    $join->on('modelnyear_service.service_id', '=', 'service.id')
+                        ->where('modelnyear.car_models_id',$request->get('model_id'));
+                })
+                ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
 
