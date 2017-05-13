@@ -15,6 +15,7 @@
                         <option value="5">Brake Pad</option>
                         <option value="6">Model and Year Battery </option>
                         <option value="7">Battery Amps</option>
+                        <option value="8">Model and Year Services</option>
                     </select>
                 </div>
             </div>
@@ -24,6 +25,17 @@
                 <div class="col-md-4">
                     <input id="textinput" name="objectName" type="text" placeholder="" class="form-control input-md" value="">
 
+                </div>
+            </div>
+
+            <div class="form-group " id="serviceDiv">
+                <label class="col-md-4 control-label" for="years">Services:</label>
+                <div class="col-md-4 ">
+                    <select name="serviceSelect" class="form-control" id="serviceSelect" >
+                        @foreach($services as $service)
+                            <option value="{{$service->id}}">{{$service->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -121,6 +133,9 @@
             $('#yearFDiv').hide();
             $('#yearTDiv').hide();
             $('#batteriesDiv').hide();
+            $('#priceDiv').hide();
+            $('#serviceDiv').hide();
+
         });
         $('#ampere').hide();
         $('#ampsDiv').hide();
@@ -128,11 +143,13 @@
         $('#yearFDiv').hide();
         $('#yearTDiv').hide();
         $('#batteriesDiv').hide();
+        $('#priceDiv').hide();
+        $('#serviceDiv').hide();
 
         $('#selectMe').change(function(){
             if($('#selectMe').val() == 1) {
 
-                $('#priceDiv').show();
+
 
             } else {
 
@@ -218,7 +235,21 @@
                 $('#batteriesDiv').show();
                 $('#nameDiv').hide();
                 $('#ampere').show();
+                $('#priceDiv').show();
 
+            } else {
+
+
+
+            }
+        });
+
+        $('#selectMe').change(function(){
+            if($('#selectMe').val() == 8) {
+                $('#modelSelect').show();
+                $('#nameDiv').hide();
+                $('#serviceDiv').show();
+            $('#priceDiv').show();
 
             } else {
 

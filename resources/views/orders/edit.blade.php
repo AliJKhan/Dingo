@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center" ><span id="unitPrice-{{$item->id}}">{{$item->getServicePrice()}}</span></td>
+                                    <td class="text-center" ><span id="unitPrice-{{$item->id}}">{{$item->original_price}}</span></td>
 
                                     <td class="text-center"> <div class="col-xs-6"><input type="text" class="form-control" id="discountPrice-{{$item->id}}" name="discountPrices[]" value="{{$item->discount_price}}" ></div></td>
                                     <td class="text-center" ><input type="text" class="form-control" id="total-{{$item->id}}" name="total[]" value="{{$item->after_discount_price}}" readonly>                                     </td>

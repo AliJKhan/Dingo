@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 /* LOGIN CONTROLLER  */
 Route::get('/', [ 'as' => 'index', 'uses' => 'WebController@index']);
-Route::post('signup/store', [ 'as' => 'signup/store', 'uses' => 'WebController@postStore']);
 Route::post('signin', [ 'as' => 'signin', 'uses' => 'WebController@signIn']);
 Route::get('signup', [ 'as' => 'signup', 'uses' => 'WebController@signUp']);
+Route::post('signup/store', [ 'as' => 'signup/store', 'uses' => 'WebController@postStore']);
 
 
 
@@ -40,8 +40,15 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::get('services/edit', [ 'as' => 'editService', 'uses' => 'ServicesController@editService']);
     Route::post('services/update', [ 'as' => 'updateService', 'uses' => 'ServicesController@updateService']);
     Route::get('services/add', [ 'as' => 'addService', 'uses' => 'ServicesController@addService']);
+    Route::post('services/store', [ 'as' => 'newService', 'uses' => 'ServicesController@newService']);
 
     Route::get('airfilters/index', [ 'as' => 'airFilters', 'uses' => 'ServicesController@airFilters']);
+
+
+
+
+
+
     Route::get('battery/index', [ 'as' => 'batteries', 'uses' => 'ServicesController@batteries']);
     Route::get('oilFilters/index', [ 'as' => 'oilFilters', 'uses' => 'ServicesController@oilFilters']);
     Route::get('breakPads/index', [ 'as' => 'breakPads', 'uses' => 'ServicesController@breakPads']);
@@ -49,13 +56,11 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::get('modelnyear/index', [ 'as' => 'addModelnyear', 'uses' => 'ServicesController@addModelnyear']);
     Route::post('modelnyear/add', [ 'as' => 'newModelnyear', 'uses' => 'ServicesController@newModelnyear']);
 
-
-
-    Route::post('services/store', [ 'as' => 'newService', 'uses' => 'ServicesController@newService']);
     Route::get('services/delete', [ 'as' => 'deleteService', 'uses' => 'ServicesController@deleteService']);
     Route::get('mechanics/index', [ 'as' => 'mechanics', 'uses' => 'ServicesController@mechanics']);
     Route::get('mechanics/add', [ 'as' => 'addMechanic', 'uses' => 'ServicesController@addMechanic']);
     Route::post('mechanics/store', [ 'as' => 'newMechanic', 'uses' => 'ServicesController@newMechanic']);
+
 
     /* Orders CONTROLLER  */
     Route::get('orders/index', [ 'as' => 'orders', 'uses' => 'OrdersController@index']);

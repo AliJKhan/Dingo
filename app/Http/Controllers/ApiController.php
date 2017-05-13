@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\modelnyear_service;
 use App\order_items;
 use App\orders;
 use Validator;
@@ -370,7 +371,7 @@ class ApiController extends Controller
             }
 
 
-            $ownedCar = owned_cars::find($request->id)->first();
+            $ownedCar = owned_cars::find($request->id);
             $ownedCar->fill($request->all());
             $ownedCar->save();
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Cars Updated" , "data"=>""], 200);
@@ -388,27 +389,31 @@ class ApiController extends Controller
 
 
             $orderItems = json_decode(($request->get('data')));
+
+            $ownedCar = owned_cars::find($orderItems->id);
+
             $total=0;
             $user = User::where('token', $request->token)->first();
+
             $order = new orders();
             $order->user_id = $user->id;
             $order->order_status_id = 1;
             $order->save();
 
-            foreach ($orderItems as $key => $array){
+            foreach ($orderItems->order_items as $key => $array){
 
                 foreach ($array as $service => $id){
-
                     $orderItem = new order_items();
                     $orderItem->orders_id = $order->id;
-                    $orderItem->service_id = $id->service_id;
-                    $orderItem->original_price = service::find($id->service_id)->price;
-                    $total +=   service::find($id->service_id)->price;
-                    $orderItem->after_discount_price = service::find($id->service_id)->price;
+                    $orderItem->service_id = $id;
+                    $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                    $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                    $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
                     $orderItem->save();
                 }
 
             }
+
             $order->subtotal = $total;
             $order->after_discount_price =$total;
             $order->save();

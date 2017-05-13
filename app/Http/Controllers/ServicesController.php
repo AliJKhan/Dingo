@@ -12,6 +12,7 @@ use App\car_models;
 use App\mechanic;
 use App\modelnyear;
 use App\modelnyear_battery;
+use App\modelnyear_service;
 use App\oil_filter_brands;
 use App\oil_filter_price;
 use App\service;
@@ -145,17 +146,17 @@ class ServicesController extends Controller
         $models = car_models::all();
         $amps = battery_amps::all();
         $batteries = battery_brand::all();
-
+        $services = service::all();
         return view('services.add')
             ->with('models',$models)
             ->with('amps',$amps)
-            ->with('batteries',$batteries);
+            ->with('batteries',$batteries)
+            ->with('services',$services);
 
     }
 
     public function newService(Request $request)
     {
-
         $yearFrom = $request->get('yearFrom');
         $yearTo = $request->get('yearTo');
         $yearCount = $yearFrom+0;
@@ -173,7 +174,6 @@ class ServicesController extends Controller
             case 1:
                 $service = new service();
                 $service->name = $request->objectName;
-                $service->price = $request->price;
                 $service->save();
 
                 break;
@@ -242,6 +242,18 @@ class ServicesController extends Controller
                 $batteryPrice->amps = $request->amps;
                 $batteryPrice->price = $request->price;
                 $batteryPrice->save();
+
+            case 8:
+
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $modelnyearService = new modelnyear_service();
+                    $modelnyearService->service_id = $request->serviceSelect;
+                    $modelnyearService->modelnyear_id = $yearCount;
+                    $modelnyearService->price = $request->price;
+                    $modelnyearService->save();
+                }
+
+
             default:
         }
 

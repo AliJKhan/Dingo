@@ -10,6 +10,7 @@ class order_items extends Model
 
     public function getServiceName()
     {
+
         $service = service::find($this->service_id)->getName();
         return $service;
     }
