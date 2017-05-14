@@ -303,7 +303,7 @@ class ApiController extends Controller
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
                         ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
-                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.type as type','service.description as description')
+                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.type as type','service.description as description','service.thumbnail as thumbnail')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
