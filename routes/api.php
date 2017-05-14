@@ -40,6 +40,10 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
     $api->post('getAllServices','App\Http\Controllers\ApiController@getAllServices');
     $api->post('getOilBrandsWithPrices','App\Http\Controllers\ApiController@getOilBrandsWithPrices');
+    $api->post('getBatteryBrandsWithPrices','App\Http\Controllers\ApiController@getBatteryBrandsWithPrices');
+
+
+    $api->post('getAllBrands','App\Http\Controllers\ApiController@getAllBrands');
 
 
     $api->post('postOwnedCar','App\Http\Controllers\ApiController@postOwnedCar');

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\modelnyear_battery;
 use App\modelnyear_service;
 use App\order_items;
 use App\orders;
@@ -315,16 +316,18 @@ class ApiController extends Controller
         }
     }
 
-    public function getOilBrandsWithPrices(Request $request)
+    public function getOilBrandsWithPrices($modelnyear_id)
     {
+
         try{
 
-            $engineOilCapacity = modelnyear::find($request->get('modelnyear_id'))->getCapacity->capacity;
+            $engineOilCapacity = modelnyear::find($modelnyear_id)->getCapacity->capacity;
             $oilBrands = oil_brands::all();
 
             foreach ($oilBrands as $brand) {
                 $brand->price = $engineOilCapacity * $brand->price;
             }
+
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Prices" , "data"=>$oilBrands], 200);
 
         }
@@ -410,17 +413,17 @@ class ApiController extends Controller
 
             foreach ($orderItems->order_items as $key => $array){
 
-                   foreach ($array as $service => $id){
+                foreach ($array as $service => $id){
 
 
 
-                     $orderItem = new order_items();
-                     $orderItem->orders_id = $order->id;
-                     $orderItem->service_id = $id->service_id;
-                     $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                     $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                     $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                     $orderItem->save();
+                    $orderItem = new order_items();
+                    $orderItem->orders_id = $order->id;
+                    $orderItem->service_id = $id->service_id;
+                    $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                    $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                    $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
+                    $orderItem->save();
                 }
 
             }
@@ -445,6 +448,60 @@ class ApiController extends Controller
             $orderItems = $order->getItems;
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Order Found" , "data"=>$orderItems], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getBatteryBrandsWithPrices(Request $request)
+    {
+        $modelnyear = modelnyear_battery::where('modelnyear_id',$request->modelnyear_id)->first();
+        try{
+
+            $batteryBrandPrice = \DB::table('battery_brand')
+                ->join('battery_amps', function($join)use($modelnyear)
+                {
+                    $join->on('battery_amps.battery_brand_id', '=', 'battery_brand.id')
+                        // ->where('air_filter_brands.id',$request->get('air_filter_brands_id'))
+                        ->where('battery_amps.amps',$modelnyear->amps);
+                })
+                ->get();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Battery Brands with Prices" , "data"=>$batteryBrandPrice], 200);
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function getAllBrands(Request $request)
+    {
+
+
+        try{
+            $modelnyearService = modelnyear_service::find($request->id);
+            $service = service::find($modelnyearService->service_id);
+            $type = $service->type_id;
+
+            switch ($type) {
+                case 1:
+
+                  return  $this->getOilBrandsWithPrices($request->modelnyear_id);
+
+                    break;
+
+
+                    break;
+
+                    break;
+                default:
+            }
+
 
         }
         catch(Exception $ex)
