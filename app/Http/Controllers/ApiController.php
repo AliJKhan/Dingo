@@ -233,6 +233,7 @@ class ApiController extends Controller
     }
 
     public function getOilFilterBrandsWithPrices(Request $request)
+
     {
         try{
 
@@ -481,7 +482,6 @@ class ApiController extends Controller
 
     public function getAllBrands(Request $request)
     {
-
 
         try{
             $modelnyearService = modelnyear_service::find($request->id);
