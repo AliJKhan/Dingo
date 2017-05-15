@@ -9,10 +9,12 @@ use App\battery_brand;
 use App\brake_pad_brand;
 use App\brake_pad_price;
 use App\car_models;
+use App\engine_oil_capacity;
 use App\mechanic;
 use App\modelnyear;
 use App\modelnyear_battery;
 use App\modelnyear_service;
+use App\oil_brands;
 use App\oil_filter_brands;
 use App\oil_filter_price;
 use App\service;
@@ -147,11 +149,19 @@ class ServicesController extends Controller
         $amps = battery_amps::all();
         $batteries = battery_brand::all();
         $services = service::all();
+        $airFilters = air_filter_brands::all();
+        $oilFilters = oil_filter_brands::all();
+        $brakePads = brake_pad_brand::all();
+
+
         return view('services.add')
             ->with('models',$models)
             ->with('amps',$amps)
             ->with('batteries',$batteries)
-            ->with('services',$services);
+            ->with('services',$services)
+            ->with('airFilters',$airFilters)
+            ->with('oilFilters',$oilFilters)
+            ->with('brakePads',$brakePads);
 
     }
 
@@ -167,9 +177,7 @@ class ServicesController extends Controller
         }
 
 
-
-
-        $type = $request->selection;
+       $type = $request->selection;
         switch ($type) {
             case 1:
                 $service = new service();
@@ -188,13 +196,7 @@ class ServicesController extends Controller
                 $airFilter->name = $request->objectName;
                 $airFilter->save();
 
-                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
-                    $filterPrice = new air_filter_price();
-                    $filterPrice->air_filter_brands_id = $airFilter->id;
-                    $filterPrice->modelnyear_id = $yearCount;
-                    $filterPrice->price = $request->price;
-                    $filterPrice->save();
-                }
+
 
                 break;
             case 4:
@@ -242,7 +244,7 @@ class ServicesController extends Controller
                 $batteryPrice->amps = $request->amps;
                 $batteryPrice->price = $request->price;
                 $batteryPrice->save();
-
+                break;
             case 8:
 
                 for($yearCount;$yearCount<=$yearTo;$yearCount++) {
@@ -252,8 +254,52 @@ class ServicesController extends Controller
                     $modelnyearService->price = $request->price;
                     $modelnyearService->save();
                 }
+                break;
+            case 9:
 
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $filterPrice = new air_filter_price();
+                    $filterPrice->air_filter_brands_id = $request->airFilter;
+                    $filterPrice->modelnyear_id = $yearCount;
+                    $filterPrice->price = $request->price;
+                    $filterPrice->save();
+                }
+                break;
+            case 10:
 
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $filterPrice = new oil_filter_price();
+                    $filterPrice->oil_filter_brands_id = $request->oilFilter;
+                    $filterPrice->modelnyear_id = $yearCount;
+                    $filterPrice->price = $request->price;
+                    $filterPrice->save();
+                }
+                break;
+            case 11:
+
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $brakePadPrice = new brake_pad_price();
+                    $brakePadPrice->brake_pad_brand_id = $request->brakePads;
+                    $brakePadPrice->modelnyear_id = $yearCount;
+                    $brakePadPrice->price = $request->price;
+                    $brakePadPrice->save();
+                }
+                break;
+            case 12:
+
+                $oil = new oil_brands();
+                $oil->name = $request->objectName;
+                $oil->save();
+
+                break;
+            case 13:
+                for($yearCount;$yearCount<=$yearTo;$yearCount++) {
+                    $oilCapacity = new engine_oil_capacity();
+                    $oilCapacity->capacity = $request->capacity;
+                    $oilCapacity->modelnyear_id = $yearCount;
+                    $oilCapacity->save();
+                }
+                break;
             default:
         }
 
