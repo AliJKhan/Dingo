@@ -289,6 +289,8 @@ class ServicesController extends Controller
 
                 $oil = new oil_brands();
                 $oil->name = $request->objectName;
+                $oil->price = $request->price;
+
                 $oil->save();
 
                 break;

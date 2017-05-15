@@ -338,6 +338,17 @@
             }
         });
 
+        $('#selectMe').change(function(){
+            if($('#selectMe').val() == 12) {
+
+                $('#priceDiv').show();
+
+
+            } else {
+
+            }
+        });
+
 
         $('#selectMe').change(function(){
             if($('#selectMe').val() == 13) {

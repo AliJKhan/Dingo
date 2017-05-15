@@ -21,4 +21,9 @@ class order_items extends Model
         return $servicePrice ;
     }
 
+    public function getSubItems()
+    {
+
+        return $this->hasMany('App\order_sub_items')->get();
+    }
 }
