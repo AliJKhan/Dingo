@@ -54,6 +54,8 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('postOrder','App\Http\Controllers\ApiController@postOrder');
     $api->post('getOrder','App\Http\Controllers\ApiController@getOrder');
 
+    $api->post('checkPromoCode','App\Http\Controllers\ApiController@checkPromoCode');
+
 
 
 

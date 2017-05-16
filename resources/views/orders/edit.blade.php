@@ -25,7 +25,7 @@
                         </div>--}}
                         <div class="col-md-12">
                             <small>Discount</small>
-                            <div class="pull-right col-xs-3 "><input type="text" class="input-sm  form-control"  name="orderDiscount" value="{{$order->discount_price}}" id="orderDiscount"></div>
+                            <div class="pull-right col-xs-3 "><input type="text" class="input-sm  form-control"  name="orderDiscount" value="{{$order->discount_amount}}" id="orderDiscount"></div>
                             <hr>
                         </div>
                         <div class="col-md-12">
@@ -153,14 +153,14 @@
                                             <a class="thumbnail pull-left" href="#"> <img class="media-object"  style="width: 72px; height: 72px;"> </a>
                                             <div class="media-body">
 
-                                                <h5 class="media-heading">{{$item->getServiceName()}} </h5>
+                                                <h5 class="media-heading">{{$item->service_name}} </h5>
 
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center" ><span id="unitPrice-{{$item->id}}">{{$item->original_price}}</span></td>
+                                    <td class="text-center" ><span id="unitPrice-{{$item->id}}">{{$item->service_orignal_price}}</span></td>
 
-                                    <td class="text-center"> <div class="col-xs-6"><input type="text" class="form-control" id="discountPrice-{{$item->id}}" name="discountPrices[]" value="{{$item->discount_price}}" ></div></td>
+                                    <td class="text-center"> <div class="col-xs-6"><input type="text" class="form-control" id="discountPrice-{{$item->id}}" name="discountPrices[]" value="{{$item->discount_amount}}" ></div></td>
                                     <td class="text-center" ><input type="text" class="form-control" id="total-{{$item->id}}" name="total[]" value="{{$item->after_discount_price}}" readonly>                                     </td>
                                     {{--     <td class="text-right"><button type="button" class="btn btn-danger" disabled>Remove</button></td> --}}
                                 </tr>

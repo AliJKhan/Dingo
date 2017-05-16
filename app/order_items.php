@@ -26,4 +26,9 @@ class order_items extends Model
 
         return $this->hasMany('App\order_sub_items')->get();
     }
+
+    protected $fillable = [
+        'order_primary_id','primary_id','service_id','service_name','service_thumbnail','service_orignal_price','discount_amount',
+        'after_discount_price','service_description','service_classification'
+    ];
 }

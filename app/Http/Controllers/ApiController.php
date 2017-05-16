@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\modelnyear_battery;
 use App\modelnyear_service;
 use App\order_items;
+use App\order_sub_items;
 use App\orders;
+use App\promo_codes;
 use Validator;
 use App\otp_verification,
     App\User,
@@ -398,41 +400,47 @@ class ApiController extends Controller
     public function postOrder(Request $request)
     {
         try{
-
-
-            $orderItems = json_decode(($request->get('data')));
-
-            $ownedCar = owned_cars::find($orderItems->id);
-
-            $total=0;
             $user = User::where('token', $request->token)->first();
-
             $order = new orders();
             $order->user_id = $user->id;
             $order->order_status_id = 1;
+            $order->fill($request->all());
             $order->save();
 
-            foreach ($orderItems->order_items as $key => $array){
+            foreach ($request->order_items as $array){
 
-                foreach ($array as $service => $id){
+                $orderItem = new order_items();
+                $orderItem->orders_id = $order->id;
+                $orderItem->order_primary_id = $array['order_primary_id'];
+                $orderItem->primary_id = $array['primary_id'];
+                $orderItem->service_id = $array['service_id'];
+                $orderItem->service_name = $array['service_name'];
+                $orderItem->service_thumbnail = $array['service_thumbnail'];
+                $orderItem->service_orignal_price = $array['service_orignal_price'];
+                $orderItem->discount_amount = $array['discount_amount'];
+                $orderItem->after_discount_price = $array['after_discount_price'];
+                $orderItem->service_description = $array['service_description'];
+                $orderItem->service_classification = $array['service_classification'];
+                $orderItem->save();
+                foreach ($array['service_sub_items'] as $sub_array){
+                    $sub_array_item = new order_sub_items();
+                    $sub_array_item->order_items_id = $orderItem->id;
+                    $sub_array_item->primary_id = $sub_array['primary_id'];
+                    $sub_array_item->brand_name = $sub_array['brand_name'];
+                    $sub_array_item->brand_id = $sub_array['brand_id'];
+                    $sub_array_item->orignal_price = $sub_array['orignal_price'];
+                    $sub_array_item->discount_amount = $sub_array['discount_amount'];
+                    $sub_array_item->after_discount_price = $sub_array['after_discount_price'];
+                    $sub_array_item->brand_thumbnail = $sub_array['brand_thumbnail'];
+                    $sub_array_item->save();
 
-
-
-                    $orderItem = new order_items();
-                    $orderItem->orders_id = $order->id;
-                    $orderItem->service_id = $id->service_id;
-                    $orderItem->original_price =  modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $total +=   modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $orderItem->after_discount_price = modelnyear_service::where('service_id',$id)->where('modelnyear_id',$ownedCar->modelnyear_id)->first()->price;
-                    $orderItem->save();
                 }
 
             }
 
-            $order->subtotal = $total;
-            $order->after_discount_price =$total;
-            $order->save();
-            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "New Order Added" , "data"=>$order->id], 200);
+
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "New Order Added" , "data"=>""], 200);
 
         }
         catch(Exception $ex)
@@ -491,7 +499,7 @@ class ApiController extends Controller
             switch ($type) {
                 case 1:
 
-                  return  $this->getOilBrandsWithPrices($request->modelnyear_id);
+                    return  $this->getOilBrandsWithPrices($request->modelnyear_id);
 
                     break;
 
@@ -502,6 +510,27 @@ class ApiController extends Controller
                 default:
             }
 
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function checkPromoCode(Request $request)
+    {
+
+        try{
+            $promoCode = promo_codes::where('code',$request->code)->first();
+
+            if($promoCode)
+
+                return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Code Found" , "data"=>$promoCode->discount_amount], 200);
+            else{
+                return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "Code Not Found" , "data"=>""], 200);
+
+            }
 
         }
         catch(Exception $ex)

@@ -57,7 +57,7 @@ class OrdersController extends Controller
 
         $i=0;
         foreach ($orderItems as $item) {
-            $item->discount_price = $request->discountPrices[$i];
+            $item->discount_amount = $request->discountPrices[$i];
             $item->after_discount_price = $request->total[$i];
             $orderSubTotal += $request->total[$i];
             $item->save();
@@ -65,7 +65,7 @@ class OrdersController extends Controller
         }
 
         $order->subtotal = $orderSubTotal;
-        $order->discount_price = $request->orderDiscount;
+        $order->discount_amount = $request->orderDiscount;
         $order->after_discount_price = $orderSubTotal-($request->orderDiscount);
 
         if($order->order_status_id==1 && $request->mechanic!=0){

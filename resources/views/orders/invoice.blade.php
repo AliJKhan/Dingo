@@ -68,8 +68,8 @@
                             @foreach($orderItems as $item)
                             <tr>
                                 <td>{{$item->getServiceName()}}</td>
-                                <td class="text-center">{{$item->original_price}}</td>
-                                <td class="text-center">{{$item->discount_price}}</td>
+                                <td class="text-center">{{$item->service_orignal_price}}</td>
+                                <td class="text-center">{{$item->discount_amount}}</td>
                                 <td class="text-right">{{$item->after_discount_price}}</td>
                             </tr>
 
@@ -84,7 +84,7 @@
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
                                 <td class="no-line text-center"><strong>Discount</strong></td>
-                                <td class="no-line text-right">{{$order->discount_price}}</td>
+                                <td class="no-line text-right">{{$order->discount_amount}}</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>

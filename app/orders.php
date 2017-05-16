@@ -36,5 +36,9 @@ class orders extends Model
         return $mechanicName ;
     }
 
+    protected $fillable = [
+       'subtotal','discount_amount','after_discount_price','mechanic_id','owned_cars_id','primary_id','promo_code_string',
+        'order_status_id'
+    ];
 
 }

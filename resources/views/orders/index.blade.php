@@ -37,7 +37,10 @@
                         <td>{{$order->created_at->format('w F Y H:i:s')}}</td>
 
                         <td ><a href="{{route('viewOrders', ['id' =>$order->id])}}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> View</a>
-                            <a href="{{route('editOrders', ['id' =>$order->id])}}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a></td>
+                            @if($order->order_status_id!=5)
+                                <a href="{{route('editOrders', ['id' =>$order->id])}}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
