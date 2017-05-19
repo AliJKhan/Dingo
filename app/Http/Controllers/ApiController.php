@@ -339,7 +339,9 @@ class ApiController extends Controller
 
             foreach ($oilBrands as $brand) {
                 $brand->price = $engineOilCapacity * $brand->price;
+                $brand->asd = 'xtz';
             }
+
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Prices" , "data"=>$oilBrands], 200);
 
