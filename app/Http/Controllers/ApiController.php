@@ -417,7 +417,7 @@ class ApiController extends Controller
                 $orderItem->service_id = $array['service_id'];
                 $orderItem->service_name = $array['service_name'];
                 $orderItem->service_thumbnail = $array['service_thumbnail'];
-                $orderItem->service_orignal_price = $array['service_orignal_price'];
+                $orderItem->service_original_price = $array['service_original_price'];
                 $orderItem->discount_amount = $array['discount_amount'];
                 $orderItem->after_discount_price = $array['after_discount_price'];
                 $orderItem->service_description = $array['service_description'];
@@ -429,7 +429,7 @@ class ApiController extends Controller
                     $sub_array_item->primary_id = $sub_array['primary_id'];
                     $sub_array_item->brand_name = $sub_array['brand_name'];
                     $sub_array_item->brand_id = $sub_array['brand_id'];
-                    $sub_array_item->orignal_price = $sub_array['orignal_price'];
+                    $sub_array_item->original_price = $sub_array['original_price'];
                     $sub_array_item->discount_amount = $sub_array['discount_amount'];
                     $sub_array_item->after_discount_price = $sub_array['after_discount_price'];
                     $sub_array_item->brand_thumbnail = $sub_array['brand_thumbnail'];
