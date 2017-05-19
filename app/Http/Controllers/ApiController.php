@@ -401,7 +401,6 @@ class ApiController extends Controller
     {
         try{
 
-            dd($request->all());
             $user = User::where('token', $request->token)->first();
             $order = new orders();
             $order->user_id = $user->id;
