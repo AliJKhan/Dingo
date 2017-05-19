@@ -248,11 +248,6 @@ class ApiController extends Controller
                 })
                 ->select('oil_filter_brands.name as name','oil_filter_brands.thumbnail as thumbnail','oil_filter_brands.id as id','oil_filter_price.price as price')
                 ->get();
-            $json = json_decode($oilFilterPrice);
-            foreach ($json as $j){
-                $j->xyz='asd';
-            }
-            $oilFilterPrice = json_encode($json);
 
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Oil Filter Price" , "data"=>$oilFilterPrice], 200);
@@ -292,14 +287,6 @@ class ApiController extends Controller
                 })
                 ->select('air_filter_brands.name as name','air_filter_brands.thumbnail as thumbnail','air_filter_brands.id as id','air_filter_price.price as price')
                 ->get();
-
-
-
-                $json = json_decode($airFilterPrice);
-                foreach ($json as $j){
-                    $j->xyz='asd';
-                }
-            $airFilterPrice = json_encode($json);
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Air Filter Price" , "data"=>$airFilterPrice], 200);
 
@@ -344,9 +331,7 @@ class ApiController extends Controller
 
             foreach ($oilBrands as $brand) {
                 $brand->price = $engineOilCapacity * $brand->price;
-
             }
-
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Engine Oil Prices" , "data"=>$oilBrands], 200);
 
