@@ -35,8 +35,8 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
     $api->post('getOilFilterBrands','App\Http\Controllers\ApiController@getOilFilterBrands');
     $api->post('getOilFilterBrandsWithPrices','App\Http\Controllers\ApiController@getOilFilterBrandsWithPrices');
-    $api->post('getAirFilterBrandsWithPrices','App\Http\Controllers\ApiController@getAirFilterBrands');
-    $api->post('getAirFilterPrice','App\Http\Controllers\ApiController@getAirFilterBrandsWithPrices');
+    $api->post('getAirFilterBrands','App\Http\Controllers\ApiController@getAirFilterBrands');
+    $api->post('getAirFilterBrandsWithPrices','App\Http\Controllers\ApiController@getAirFilterBrandsWithPrices');
     $api->post('getEngineOilCapacity','App\Http\Controllers\ApiController@getEngineOilCapacity');
     $api->post('getAllServices','App\Http\Controllers\ApiController@getAllServices');
     $api->post('getOilBrandsWithPrices','App\Http\Controllers\ApiController@getOilBrandsWithPrices');
