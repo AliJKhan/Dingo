@@ -288,6 +288,14 @@ class ApiController extends Controller
                 ->select('air_filter_brands.name as name','air_filter_brands.thumbnail as thumbnail','air_filter_brands.id as id','air_filter_price.price as price')
                 ->get();
 
+
+
+                $json = json_decode($airFilterPrice);
+                foreach ($json as $j){
+                    $j->xyz='asd';
+                }
+            $airFilterPrice = json_encode($json);
+
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Air Filter Price" , "data"=>$airFilterPrice], 200);
 
         }
