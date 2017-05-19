@@ -246,6 +246,7 @@ class ApiController extends Controller
                         //  ->where('oil_filter_brands.id',$request->get('oil_filter_brands_id'))
                         ->where('oil_filter_price.modelnyear_id',$request->get('modelnyear_id'));
                 })
+                ->select('oil_filter_brands.name as name','oil_filter_brands.thumbnail as thumbnail','oil_filter_brands.id as id','oil_filter_price.price as price')
                 ->get();
 
 
@@ -284,6 +285,7 @@ class ApiController extends Controller
                         // ->where('air_filter_brands.id',$request->get('air_filter_brands_id'))
                         ->where('air_filter_price.modelnyear_id',$request->get('modelnyear_id'));
                 })
+                ->select('air_filter_brands.name as name','air_filter_brands.thumbnail as thumbnail','air_filter_brands.id as id','air_filter_price.price as price')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Air Filter Price" , "data"=>$airFilterPrice], 200);
