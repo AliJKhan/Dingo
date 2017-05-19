@@ -307,7 +307,7 @@ class ApiController extends Controller
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
                         ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
-                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.classification as type','service.description as description','service.thumbnail as thumbnail')
+                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
@@ -400,6 +400,8 @@ class ApiController extends Controller
     public function postOrder(Request $request)
     {
         try{
+
+            dd($request->all());
             $user = User::where('token', $request->token)->first();
             $order = new orders();
             $order->user_id = $user->id;
