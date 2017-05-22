@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\address;
 use App\modelnyear_battery;
 use App\modelnyear_service;
 use App\order_items;
@@ -407,35 +408,44 @@ class ApiController extends Controller
             $order = new orders();
             $order->user_id = $user->id;
             $order->order_status_id = 1;
-            $order->fill($request->all());
+            $order->primary_id =  $request->primary_id;
+            $order->original_price = $request->original_price;
+            $order->discount_amount = $request->discount_amount;
+            $order->after_discount_price = $request->after_discount_price;
+            $order->address_id = $request->address['id'];
+            $order->mechanic_id = $request->mechanic['id'];
+            $order->order_status_id = $request->order_status['id'];
+            $order->owned_car_id = $request->owned_car['id'];
+            $order->promo_code_id = $request->promo_code['id'];
             $order->save();
 
             foreach ($request->order_items as $array){
 
                 $orderItem = new order_items();
                 $orderItem->orders_id = $order->id;
-                $orderItem->order_primary_id = $array['order_primary_id'];
                 $orderItem->primary_id = $array['primary_id'];
-                $orderItem->service_id = $array['service_id'];
-                $orderItem->service_name = $array['service_name'];
-                $orderItem->service_thumbnail = $array['service_thumbnail'];
-                $orderItem->service_original_price = $array['service_original_price'];
-                $orderItem->discount_amount = $array['discount_amount'];
+                $orderItem->order_primary_id = $array['order_primary_id'];
+                $orderItem->service_id = $array['service']['id'];
+                $orderItem->original_price = $array['original_price'];
                 $orderItem->after_discount_price = $array['after_discount_price'];
-                $orderItem->service_description = $array['service_description'];
-                $orderItem->service_classification = $array['service_classification'];
+                $orderItem->discount_amount = $array['discount_amount'];
+
+
                 $orderItem->save();
+
                 foreach ($array['service_sub_items'] as $sub_array){
                     $sub_array_item = new order_sub_items();
                     $sub_array_item->order_items_id = $orderItem->id;
-                    $sub_array_item->primary_id = $sub_array['primary_id'];
-                    $sub_array_item->brand_name = $sub_array['brand_name'];
                     $sub_array_item->brand_id = $sub_array['brand_id'];
+                    $sub_array_item->primary_id = $sub_array['primary_id'];
+                    $sub_array_item->order_item_primary_id = $sub_array['order_item_primary_id'];
                     $sub_array_item->original_price = $sub_array['original_price'];
                     $sub_array_item->discount_amount = $sub_array['discount_amount'];
                     $sub_array_item->after_discount_price = $sub_array['after_discount_price'];
+                    $sub_array_item->brand_name = $sub_array['brand_name'];
                     $sub_array_item->brand_thumbnail = $sub_array['brand_thumbnail'];
                     $sub_array_item->save();
+
 
                 }
 
@@ -534,6 +544,46 @@ class ApiController extends Controller
                 return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "Code Not Found" , "data"=>""], 200);
 
             }
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function postAddress(Request $request)
+    {
+
+        try{
+            $user = User::where('token', $request->token)->first();
+            $address = new address();
+            $address->user_id = $user->id;
+            $address->address = 'asd';
+            $address->save();
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Saved" , "data"=>""], 200);
+
+
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+
+    public function getAddress(Request $request)
+    {
+
+        try{
+            $user = User::where('token', $request->token)->first();
+            $addresses = $user->getAddresses;
+
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Found" , "data"=>$addresses], 200);
+
+
 
         }
         catch(Exception $ex)

@@ -30,6 +30,7 @@ $api->version('v1',function($api){
 
 $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
+    /*SERVICES  */
     $api->post('getMakes','App\Http\Controllers\ApiController@getMakes');
     $api->post('getModels','App\Http\Controllers\ApiController@getModel');
     $api->post('getModelNYear','App\Http\Controllers\ApiController@getModelNYear');
@@ -42,19 +43,30 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
     $api->post('getOilBrandsWithPrices','App\Http\Controllers\ApiController@getOilBrandsWithPrices');
     $api->post('getBatteryBrandsWithPrices','App\Http\Controllers\ApiController@getBatteryBrandsWithPrices');
 
-
+    /* BRANDS  */
     $api->post('getAllBrands','App\Http\Controllers\ApiController@getAllBrands');
 
 
+    /* OWNED CARS  */
     $api->post('postOwnedCar','App\Http\Controllers\ApiController@postOwnedCar');
     $api->post('getOwnedCars','App\Http\Controllers\ApiController@getOwnedCars');
     $api->post('updateOwnedCar','App\Http\Controllers\ApiController@updateOwnedCar');
 
 
+    /* ORDERS  */
     $api->post('postOrder','App\Http\Controllers\ApiController@postOrder');
     $api->post('getOrder','App\Http\Controllers\ApiController@getOrder');
 
+
+    /* PROMO CODES  */
     $api->post('checkPromoCode','App\Http\Controllers\ApiController@checkPromoCode');
+
+
+    /* ADDRESS */
+    $api->post('postAddress','App\Http\Controllers\ApiController@postAddress');
+    $api->post('getAddress','App\Http\Controllers\ApiController@getAddress');
+
+
 
 
 

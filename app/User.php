@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\owned_cars');
     }
+
+    public function getAddresses()
+    {
+        return $this->hasMany('App\address');
+    }
 }
