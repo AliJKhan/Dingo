@@ -169,6 +169,8 @@ class ApiController extends Controller
     {
         try{
 
+
+
             $makes= make::all();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "" , "data"=> $makes], 200);
@@ -310,7 +312,7 @@ class ApiController extends Controller
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
                         ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
-                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
+                ->select('service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
@@ -478,9 +480,9 @@ class ApiController extends Controller
         }
     }
 
-    public function getBatteryBrandsWithPrices(Request $request)
+    public function getBatteryBrandsWithPrices($modelnyear_id)
     {
-        $modelnyear = modelnyear_battery::where('modelnyear_id',$request->modelnyear_id)->first();
+        $modelnyear = modelnyear_battery::where('modelnyear_id',$modelnyear_id)->first();
         try{
 
             $batteryBrandPrice = \DB::table('battery_brand')
@@ -515,8 +517,9 @@ class ApiController extends Controller
                     return  $this->getOilBrandsWithPrices($request->modelnyear_id);
 
                     break;
+                case 2:
 
-
+                    return  $this->getBatteryBrandsWithPrices($request->modelnyear_id);
                     break;
 
                     break;
