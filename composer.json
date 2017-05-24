@@ -10,7 +10,8 @@
         "laravel/framework": "5.3.*",
         "dingo/api": "1.0.x@dev",
         "cartalyst/sentinel": "2.0.*",
-        "barryvdh/laravel-debugbar": "^2.3"
+        "barryvdh/laravel-debugbar": "^2.3",
+        "guzzlehttp/guzzle": "~4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

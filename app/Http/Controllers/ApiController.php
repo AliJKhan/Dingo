@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\address;
+use App\Mail\OrderPlaced;
 use App\modelnyear_battery;
 use App\modelnyear_service;
 use App\order_items;
 use App\order_sub_items;
 use App\orders;
 use App\promo_codes;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 use App\otp_verification,
     App\User,
@@ -312,7 +314,7 @@ class ApiController extends Controller
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
                         ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
-                ->select('modelnyear_service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
+                ->select('service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
@@ -452,7 +454,9 @@ class ApiController extends Controller
                 }
 
             }
-
+            if($order){
+              //  $this->sendMail($user->email,$order);
+            }
 
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "New Order Added" , "data"=>""], 200);
@@ -587,6 +591,23 @@ class ApiController extends Controller
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Found" , "data"=>$addresses], 200);
 
 
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function sendMail($userEmail,$order)
+    {
+
+        try{
+
+
+
+
+            Mail::to($userEmail)->send(new OrderPlaced($order));
 
         }
         catch(Exception $ex)

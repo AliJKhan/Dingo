@@ -40,6 +40,7 @@
                                 <li><a href="{{route('breakPads')}}">Brake Pad</a></li>
                                 <li><a href="{{route('orders')}}">Orders</a></li>
                                 <li><a href="{{route('mechanics')}}">Mechanics</a></li>
+                                <li><a href="{{route('users')}}">User Management</a></li>
                                 <li class="divider"></li>
                                 <li><a href="http://www.jquery2dotnet.com">Separated link</a></li>
                                 <li class="divider"></li>

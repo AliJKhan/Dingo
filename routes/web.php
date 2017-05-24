@@ -28,7 +28,6 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::post('signout', [ 'as' => 'signout', 'uses' => 'WebController@signOut']);
     Route::get('modelnyear', [ 'as' => 'modelnyear', 'uses' => 'ServicesController@getModelnyear']);
 
-
     /* CARS CONTROLLER  */
     Route::get('cars/view', [ 'as' => 'viewCar', 'uses' => 'CarsController@viewCar']);
     Route::get('cars/edit', [ 'as' => 'editCar', 'uses' => 'CarsController@editCar']);
@@ -41,21 +40,12 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::post('services/update', [ 'as' => 'updateService', 'uses' => 'ServicesController@updateService']);
     Route::get('services/add', [ 'as' => 'addService', 'uses' => 'ServicesController@addService']);
     Route::post('services/store', [ 'as' => 'newService', 'uses' => 'ServicesController@newService']);
-
     Route::get('airfilters/index', [ 'as' => 'airFilters', 'uses' => 'ServicesController@airFilters']);
-
-
-
-
-
-
     Route::get('battery/index', [ 'as' => 'batteries', 'uses' => 'ServicesController@batteries']);
     Route::get('oilFilters/index', [ 'as' => 'oilFilters', 'uses' => 'ServicesController@oilFilters']);
     Route::get('breakPads/index', [ 'as' => 'breakPads', 'uses' => 'ServicesController@breakPads']);
-
     Route::get('modelnyear/index', [ 'as' => 'addModelnyear', 'uses' => 'ServicesController@addModelnyear']);
     Route::post('modelnyear/add', [ 'as' => 'newModelnyear', 'uses' => 'ServicesController@newModelnyear']);
-
     Route::get('services/delete', [ 'as' => 'deleteService', 'uses' => 'ServicesController@deleteService']);
     Route::get('mechanics/index', [ 'as' => 'mechanics', 'uses' => 'ServicesController@mechanics']);
     Route::get('mechanics/add', [ 'as' => 'addMechanic', 'uses' => 'ServicesController@addMechanic']);
@@ -69,4 +59,8 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::post('orders/update', [ 'as' => 'updateOrders', 'uses' => 'OrdersController@updateOrders']);
 
 
+     /* USER CONTROLLER */
+    Route::get('users/index', [ 'as' => 'users', 'uses' => 'UserController@index']);
+    Route::get('users/edit', [ 'as' => 'editUsers', 'uses' => 'UserController@edit']);
+    Route::post('users/update', [ 'as' => 'updateUser', 'uses' => 'UserController@update']);
 });
