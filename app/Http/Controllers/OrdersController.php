@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\mechanic;
 use App\order_items;
 use App\orders;
+use App\owned_cars;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -24,11 +25,13 @@ class OrdersController extends Controller
 
         $order = orders::find($request->id);
 
+        $ownedCar = owned_cars::find($order->owned_car_id)->first();
         $orderItems = $order->getItems();
 
         return view('orders.invoice')
             ->with('order',$order)
-            ->with('orderItems',$orderItems);
+            ->with('orderItems',$orderItems)
+            ->with('ownedCar',$ownedCar);
 
     }
 

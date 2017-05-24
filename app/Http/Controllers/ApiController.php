@@ -11,6 +11,7 @@ use App\orders;
 use App\promo_codes;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use App\Http\helpers;
 use App\otp_verification,
     App\User,
     App\car_models,
@@ -406,6 +407,8 @@ class ApiController extends Controller
 
     public function postOrder(Request $request)
     {
+
+
         try{
 
             $user = User::where('token', $request->token)->first();
@@ -455,7 +458,7 @@ class ApiController extends Controller
 
             }
             if($order){
-              //  $this->sendMail($user->email,$order);
+                helpers::sendMail($user->email,$order);
             }
 
 
@@ -599,21 +602,6 @@ class ApiController extends Controller
         }
     }
 
-    public function sendMail($userEmail,$order)
-    {
 
-        try{
-
-
-
-
-            Mail::to($userEmail)->send(new OrderPlaced($order));
-
-        }
-        catch(Exception $ex)
-        {
-            return $ex;
-        }
-    }
 
 }

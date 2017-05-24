@@ -1,5 +1,5 @@
 @extends('layouts.headers')
-@extends('layouts.navbar')
+
 <div class="container">
 <div id="invoice" >
     <div class="row">
@@ -20,11 +20,11 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
-                        <strong>Shipped To:</strong><br>
-                        Jane Smith<br>
-                        1234 Main<br>
-                        Apt. 4B<br>
-                        Springfield, ST 54321
+                        <strong>Car Info</strong><br>
+                        {{$ownedCar->make_name}}<br>
+                        {{$ownedCar->model_name}}<br>
+                        {{$ownedCar->year}}<br>
+                        {{$ownedCar->registration_number}}
                     </address>
                 </div>
             </div>

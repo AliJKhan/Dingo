@@ -11,15 +11,15 @@ class order_items extends Model
     public function getServiceName()
     {
 
-        $modelnyearService = modelnyear_service::find($this->service_id);
-        $service = service::find($modelnyearService->service_id)->getName();
+
+        $service = service::find($this->service_id)->getName();
         return $service;
     }
 
     public function getServicePrice()
     {
-        $modelnyearService = modelnyear_service::find($this->service_id);
-        $servicePrice = service::find($modelnyearService->service_id)->getPrice();
+
+        $servicePrice = service::find($this->service_id)->getPrice();
         return $servicePrice ;
     }
 
