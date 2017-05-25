@@ -529,7 +529,7 @@ class ApiController extends Controller
 
         try{
 
-            $service = service::find($request->service_id);
+            $service = service::find($request->id);
             $type = $service->type_id;
 
             switch ($type) {
