@@ -528,8 +528,8 @@ class ApiController extends Controller
     {
 
         try{
-            $modelnyearService = modelnyear_service::find($request->id);
-            $service = service::find($modelnyearService->service_id);
+
+            $service = service::find($request->service_id);
             $type = $service->type_id;
 
             switch ($type) {
