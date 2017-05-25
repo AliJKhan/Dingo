@@ -102,7 +102,6 @@ class WebController extends Controller
     {
 
         $users = User::where('phone_number', '!=', '')->get();
-
         return view('dashboard')
             ->with('users',$users);
 

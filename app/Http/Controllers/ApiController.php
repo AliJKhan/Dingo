@@ -315,7 +315,7 @@ class ApiController extends Controller
                     $join->on('modelnyear_service.service_id', '=', 'service.id')
                         ->where('modelnyear_service.modelnyear_id' ,$request->get('modelnyear_id'));
                 })
-                ->select('service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail')
+                ->select('service.id as id','service.name as name','modelnyear_service.price as price','service.classification as classification','service.type_id as type','service.description as description','service.thumbnail as thumbnail','service.duration as duration')
                 ->get();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Services" , "data"=>$services], 200);
@@ -411,7 +411,10 @@ class ApiController extends Controller
 
         try{
 
+
             $user = User::where('token', $request->token)->first();
+            $user = Sentinel::findUserById($user->id);
+
             $order = new orders();
             $order->user_id = $user->id;
             $order->order_status_id = 1;
@@ -457,8 +460,19 @@ class ApiController extends Controller
                 }
 
             }
-            if($order){
+
+
+            $role = Sentinel::findRoleByName('User');
+
+            if($order && $role->hasAccess('orderGenerated.email') &&  $user->hasAccess('orderGenerated.email')){
+
                 helpers::sendMail($user->email,$order);
+
+            }
+            if($order && $role->hasAccess('orderGenerated.sms') &&  $user->hasAccess('orderGenerated.sms')){
+
+              $sms = "Order Placed Successfully";
+                helpers::sendSms($user->phone_number,$sms);
             }
 
 

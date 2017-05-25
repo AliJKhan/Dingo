@@ -65,9 +65,17 @@ class UserController extends Controller
 
         foreach ($request->permission as $permisison => $value) {
 
-            $user->updatePermission($permisison, $value,true);
+            if($value=='true')
+            {
+                $user->updatePermission($permisison, true, true)->save();
+                $user->save();
+            }elseif($value=='false'){
 
-            $user->save();
+                $user->updatePermission($permisison, false, true)->save();
+                $user->save();
+            }
+
+
         }
 
         return redirect()->action('UserController@index');
