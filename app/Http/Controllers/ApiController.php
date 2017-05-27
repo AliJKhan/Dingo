@@ -586,7 +586,7 @@ class ApiController extends Controller
             $address->fill($request->all());
             $address->save();
 
-            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Saved" , "data"=>""], 200);
+            return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Saved" , "data"=>$address], 200);
 
 
 
