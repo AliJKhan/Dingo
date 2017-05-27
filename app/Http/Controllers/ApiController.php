@@ -583,7 +583,7 @@ class ApiController extends Controller
             $user = User::where('token', $request->token)->first();
             $address = new address();
             $address->user_id = $user->id;
-            $address->address = 'asd';
+            $address->fill($request->all());
             $address->save();
 
             return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "Address Saved" , "data"=>""], 200);
@@ -616,6 +616,27 @@ class ApiController extends Controller
         }
     }
 
+    public function getUser(Request $request)
+    {
 
+        try{
+            $user = User::where('token', $request->token)->first();
+
+            if($user){
+                return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "User Found" , "data"=>$user], 200);
+
+            }else{
+                return response()->json(['response_code' => ConstantsController::FAILURE, 'message' => "User Not Found" , "data"=>''], 200);
+
+            }
+
+
+
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
 
 }

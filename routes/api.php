@@ -70,13 +70,13 @@ $api->version('v1',['middleware'=>'tokenCheck'],function($api){
 
 
 
-
-    $api->post('sendMail','App\Http\Controllers\ApiController@sendMail');
+    /*USER MANAGEMENT*/
+    $api->post('getUser','App\Http\Controllers\ApiController@getUser');
 
 
 
     $api->get('getAllUsers','App\Http\Controllers\ApiController@getAllUsers');
-    $api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
+    //$api->get('getUser','App\Http\Controllers\Auth\LoginController@getUser');
     $api->get('refreshToken','App\Http\Controllers\Auth\LoginController@refreshToken');
 
 
