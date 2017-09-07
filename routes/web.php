@@ -57,6 +57,8 @@ Route::group(['middleware' => ['sentinelCheck','adminCheck']], function () {
     Route::get('orders/view', [ 'as' => 'viewOrders', 'uses' => 'OrdersController@viewOrders']);
     Route::get('orders/edit', [ 'as' => 'editOrders', 'uses' => 'OrdersController@editOrders']);
     Route::post('orders/update', [ 'as' => 'updateOrders', 'uses' => 'OrdersController@updateOrders']);
+    Route::get('orders/new', [ 'as' => 'newOrders', 'uses' => 'OrdersController@newOrders']);
+    Route::post('orders/post', [ 'as' => 'postOrders', 'uses' => 'OrdersController@postOrders']);
 
 
      /* USER CONTROLLER */

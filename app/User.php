@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','token'
+        'password', 'remember_token','token','last_login','updated_at','permissions '
     ];
 
     public function getAllCars()

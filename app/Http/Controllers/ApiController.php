@@ -9,6 +9,7 @@ use App\order_items;
 use App\order_sub_items;
 use App\orders;
 use App\promo_codes;
+use App\WebUser;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 use App\Http\helpers;
@@ -622,7 +623,14 @@ class ApiController extends Controller
         try{
             $user = User::where('token', $request->token)->first();
 
+
+
             if($user){
+                $sentinel_user = WebUser::where('token', $request->token)->first();
+                if($sentinel_user->inRole('manager')){
+                    $user['is_manager']=true;
+                }
+
                 return response()->json(['response_code' => ConstantsController::SUCCESS, 'message' => "User Found" , "data"=>$user], 200);
 
             }else{

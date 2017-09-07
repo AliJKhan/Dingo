@@ -7,6 +7,7 @@
         <div class="span5">
             <table class="table table-striped table-condensed">
                 <h3>Orders</h3>
+                <a href="{{route('newOrders')}}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Add</a>
                 <thead>
                 <tr>
                     <th>Order ID</th>

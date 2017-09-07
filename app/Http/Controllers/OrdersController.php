@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\air_filter_brands;
+use App\battery_brand;
 use App\mechanic;
+use App\oil_brands;
+use App\oil_filter_brands;
 use App\order_items;
 use App\orders;
 use App\owned_cars;
+use App\service;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -88,4 +93,28 @@ class OrdersController extends Controller
     }
 
 
+    public function newOrders(Request $request)
+    {
+
+        $services = service::all();
+        $oilBrands = oil_brands::all();
+        $airFilters = air_filter_brands::all();
+        $oilFilters = oil_filter_brands::all();
+
+        $batteryBrands = battery_brand::all();
+
+
+        return view('orders.new')
+            ->with('services',$services)
+            ->with('oilBrands',$oilBrands)
+            ->with('airFilters',$airFilters)
+            ->with('oilFilters',$oilFilters)
+            ->with('batteryBrands',$batteryBrands);
+    }
+
+    public function postOrders(Request $request)
+    {
+        dd($request->all());
+        return redirect()->action('OrdersController@index');
+    }
 }
